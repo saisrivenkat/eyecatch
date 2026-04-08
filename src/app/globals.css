@@ -20,7 +20,7 @@
   }
 
   body {
-    background-color: var(--color-kota-white);
+    background-color: #efefef;
     color: var(--color-kota-black);
     font-family: var(--font-montreal);
     font-size: 20px;

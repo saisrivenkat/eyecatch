@@ -30,13 +30,6 @@ export function HeroSection() {
       className="relative w-full h-screen"
       style={{ backgroundColor: "transparent" }}
     >
-      {/* Bottom gradient fade to blend into next section */}
-      <div
-        className="absolute bottom-0 left-0 w-full h-40 z-3 pointer-events-none"
-        style={{
-          background: "linear-gradient(to bottom, transparent, #efefef)",
-        }}
-      />
       {/* Main container */}
       <div className="container relative z-2 mx-auto h-full flex flex-col justify-center px-6 md:px-10 pb-10">
         {/* Hero display text */}
