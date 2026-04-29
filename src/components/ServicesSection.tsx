@@ -15,30 +15,30 @@ interface ServicePanelData {
 
 const services: ServicePanelData[] = [
   {
-    heading: "Web design & development",
+    heading: "Design & Development",
     tags: [
-      "Creative web design",
-      "Web development",
+      "Creative ideation",
+      "Aesthetic and functional design",
+      "Design development",
       "Copywriting",
       "E-Commerce",
-      "WordPress",
     ],
     description:
-      "Crafting digital experiences where beauty meets ROI, turning heads and unlocking revenue potential with every click.",
+      "Crafting digital experiences where aesthetics meets ROI — turning heads and unlocking revenue with every click.",
     video: "/videos/homepage.mp4",
   },
   {
     heading: "Branding",
     tags: ["Brand strategy", "Tone of voice", "Visual identity"],
     description:
-      "Building brands that cut through the noise. Bold identities that own their space and make competitors nervous.",
+      "Building brands that cut through the noise. Bold identities that claim their space.",
     video: "/videos/homepage.mp4",
   },
   {
     heading: "Digital Marketing",
-    tags: ["SEO", "Content marketing", "Social media", "Paid media"],
+    tags: ["SEO & content marketing", "Social media", "Paid media"],
     description:
-      "Strategic marketing that puts your brand where your audience actually is. Data-driven, creatively led, results-obsessed.",
+      "Strategic marketing that meets your audience where they are. Data driven, creatively led, results oriented.",
     video: "/videos/homepage.mp4",
   },
 ];
@@ -47,17 +47,19 @@ function ServicePanel({ heading, tags, description, video }: ServicePanelData) {
   return (
     <div className="relative flex min-h-[580px] overflow-hidden max-lg:flex-col">
       <div
-        className="absolute bg-white"
+        className="absolute"
         style={{
           inset: "-45px",
           borderRadius: "64px",
           zIndex: 1,
+          backgroundColor: "#1a1a1a",
+          border: "1px solid rgba(255,255,255,0.06)",
         }}
       />
       <div className="relative z-2 flex flex-1 flex-col justify-between p-8 md:p-[50px] md:pl-[70px]">
         <div>
           <h3
-            className="font-normal leading-none text-black"
+            className="font-normal leading-none text-white"
             style={{ fontSize: "clamp(48px, 7vw, 101px)" }}
           >
             {heading}
@@ -66,14 +68,14 @@ function ServicePanel({ heading, tags, description, video }: ServicePanelData) {
             {tags.map((tag) => (
               <li
                 key={tag}
-                className="rounded-full border border-black/20 px-4 py-2 text-[13px] text-black"
+                className="rounded-full border border-white/20 px-4 py-2 text-[13px] text-white/80"
               >
                 {tag}
               </li>
             ))}
           </ul>
         </div>
-        <p className="mt-8 max-w-[500px] text-[20px] leading-[28px] text-black">
+        <p className="mt-8 max-w-[500px] text-[20px] leading-[28px] text-white/75">
           {description}
         </p>
       </div>
@@ -101,61 +103,64 @@ export function ServicesSection() {
     const title = titleRef.current;
     if (!section || !title) return;
 
-    const triggers: ScrollTrigger[] = [];
+    const tweens: gsap.core.Tween[] = [];
 
-    // "Our Services" parallax — scrolls away with parallax as you continue
-    const titleTrigger = ScrollTrigger.create({
-      trigger: section,
-      start: "top top",
-      end: "+=600",
-      pin: title,
-      pinSpacing: false,
-      onUpdate: (self) => {
-        const p = self.progress;
-        gsap.set(title, {
-          opacity: 1 - p * 1.5,
-          y: -p * 200,
-        });
+    // "Our Services" parallax — scrubbed timeline for smooth motion
+    const titleTween = gsap.to(title, {
+      opacity: 0,
+      y: -200,
+      ease: "none",
+      force3D: true,
+      scrollTrigger: {
+        trigger: section,
+        start: "top top",
+        end: "+=600",
+        pin: title,
+        pinSpacing: false,
+        scrub: 0.6,
       },
     });
-    triggers.push(titleTrigger);
+    tweens.push(titleTween);
 
-    // Stacked card animation
+    // Stacked card animation — scrubbed for smooth scaling/fading
     const panels = panelRefs.current.filter(Boolean) as HTMLDivElement[];
     panels.forEach((panel, i) => {
       if (i === panels.length - 1) return;
 
-      const st = ScrollTrigger.create({
-        trigger: panel,
-        start: "top 30px",
-        end: () => `+=${panel.offsetHeight + 250}`,
-        pin: true,
-        pinSpacing: true,
-        onUpdate: (self) => {
-          const progress = self.progress;
-          const scale = 1 - progress * 0.2;
-          const opacity = 1 - progress;
-          gsap.set(panel, {
-            scale,
-            opacity,
-            transformOrigin: "center top",
-          });
+      gsap.set(panel, { transformOrigin: "center top", force3D: true, willChange: "transform, opacity" });
+
+      const tween = gsap.to(panel, {
+        scale: 0.8,
+        opacity: 0,
+        ease: "none",
+        force3D: true,
+        scrollTrigger: {
+          trigger: panel,
+          start: "top 30px",
+          end: () => `+=${panel.offsetHeight + 250}`,
+          pin: true,
+          pinSpacing: true,
+          scrub: 0.6,
+          invalidateOnRefresh: true,
         },
       });
-      triggers.push(st);
+      tweens.push(tween);
     });
 
     return () => {
-      triggers.forEach((st) => st.kill());
+      tweens.forEach((t) => {
+        t.scrollTrigger?.kill();
+        t.kill();
+      });
     };
   }, []);
 
   return (
-    <section ref={sectionRef} className="relative bg-[#efefef]" style={{ zIndex: 2, paddingBottom: "40px" }}>
+    <section ref={sectionRef} className="relative bg-[#0e0e0e]" style={{ zIndex: 2, paddingBottom: "40px" }}>
       {/* Our Services title — centered, parallax fades out on scroll */}
       <h2
         ref={titleRef}
-        className="flex items-center justify-center text-black"
+        className="flex items-center justify-center text-white"
         style={{
           height: "100vh",
           fontSize: "clamp(48px, 9vw, 150px)",

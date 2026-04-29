@@ -7,7 +7,7 @@ export function Footer() {
   const [copied, setCopied] = useState(false);
 
   const handleCopy = async () => {
-    await navigator.clipboard.writeText("hello@kota.co.uk");
+    await navigator.clipboard.writeText("hello@eyecatch.in");
     setCopied(true);
     setTimeout(() => setCopied(false), 2000);
   };
@@ -19,10 +19,10 @@ export function Footer() {
         <ScrollReveal distance={40}>
           <div className="flex flex-col sm:flex-row sm:items-center gap-4 mb-16">
             <a
-              href="mailto:hello@kota.co.uk"
+              href="mailto:hello@eyecatch.in"
               className="text-3xl md:text-4xl font-normal hover:opacity-80 transition-opacity"
             >
-              hello@kota.co.uk
+              hello@eyecatch.in
             </a>
             <button
               onClick={handleCopy}
@@ -130,10 +130,10 @@ export function Footer() {
         <ScrollReveal delay={0.2} distance={20}>
           <div className="border-t border-white/10 pt-6 flex flex-col sm:flex-row justify-between items-center gap-4">
             <p className="text-xs opacity-40">
-              &copy; {new Date().getFullYear()} KOTA. All rights reserved.
+              &copy; {new Date().getFullYear()} EyeCatch. All rights reserved.
             </p>
             <p className="text-xs opacity-40">
-              Web Design Agency London &amp; NYC
+              Design &amp; Branding Agency &mdash; Hyderabad &amp; Vijayawada
             </p>
           </div>
         </ScrollReveal>

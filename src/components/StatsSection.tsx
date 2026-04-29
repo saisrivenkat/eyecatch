@@ -5,22 +5,22 @@ import { ScrollReveal } from "@/components/ScrollReveal";
 
 const stats = [
   {
-    bg: "#d7e1d3",
+    bg: "#b9e6c9",
     number: "67.6%",
     description: "rise in engaged sessions per user after 1 month.",
   },
   {
-    bg: "#a8e1ec",
+    bg: "#a3d8ec",
     number: "70.8%",
     description: "increase in average engagement time after 3 months.",
   },
   {
-    bg: "#c4b5f3",
+    bg: "#c8b8f3",
     number: "83.14%",
     description: "increase in sales after 1 year.",
   },
   {
-    bg: "#f8e5cb",
+    bg: "#fbd5af",
     number: "104.9%",
     description: "increase in organic visits after 1 month",
   },

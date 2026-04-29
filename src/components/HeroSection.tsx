@@ -40,34 +40,34 @@ export function HeroSection() {
             fontWeight: 400,
             lineHeight: 0.92,
             letterSpacing: "-0.03em",
-            color: "black",
+            color: "white",
             perspective: "600px",
           }}
         >
           {mounted ? (
             <>
               <div>
-                <SplitText text="Dont just" baseDelay={0.1} />
+                <SplitText text="Ordinary is seen." baseDelay={0.1} />
               </div>
               <div>
-                <SplitText text="be seen be" baseDelay={0.4} />
+                <SplitText text="Legendary is" baseDelay={0.4} />
               </div>
               <div>
-                <SplitText text="remembered" baseDelay={0.7} />
+                <SplitText text="remembered." baseDelay={0.7} />
               </div>
             </>
           ) : (
             <>
-              <div style={{ visibility: "hidden" }}>Dont just</div>
-              <div style={{ visibility: "hidden" }}>be seen be</div>
-              <div style={{ visibility: "hidden" }}>remembered</div>
+              <div style={{ visibility: "hidden" }}>Ordinary is seen.</div>
+              <div style={{ visibility: "hidden" }}>Legendary is</div>
+              <div style={{ visibility: "hidden" }}>remembered.</div>
             </>
           )}
         </div>
 
         {/* Subtitle — bottom right */}
         <p
-          className="absolute right-6 md:right-10 bottom-10 max-w-95 text-black max-md:static max-md:mt-10 max-md:max-w-full"
+          className="absolute right-6 md:right-10 bottom-10 max-w-95 text-white max-md:static max-md:mt-10 max-md:max-w-full"
           style={{
             fontSize: "21px",
             lineHeight: "27px",
@@ -76,9 +76,10 @@ export function HeroSection() {
             transition: "opacity 0.8s ease 1.2s, transform 0.8s ease 1.2s",
           }}
         >
-          We&apos;re a creative web design and branding agency based in London
-          that crafts beautiful work for brands who{" "}
-          <span className="font-bold">refuse to blend in.</span>
+          EyeCatch is a creative design and branding agency rooted in
+          Hyderabad and Vijayawada, shaping bold, beautiful narratives for
+          brands that{" "}
+          <span className="font-bold">refuse to fade into the crowd.</span>
         </p>
       </div>
     </section>

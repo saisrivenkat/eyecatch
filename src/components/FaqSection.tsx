@@ -6,34 +6,35 @@ import { ScrollReveal } from "@/components/ScrollReveal";
 
 const faqs = [
   {
-    question: "How much does web design and development typically cost?",
+    question:
+      "How much does logo, brochure, web design and development typically cost?",
     answer:
-      "The majority of our projects sit between \u00a330k and \u00a3150k, but project costs will depend on the final scope of work and vary from project to project. We generally have a minimum project size of \u00a325k and prefer to agree a fixed cost with agreed milestone payments.",
+      "Project costs depend on scope and ambition, so pricing varies from engagement to engagement. We\u2019ll scope your project, share a clear quote, and work to fixed costs with agreed milestone payments.",
   },
   {
     question: "How long does a project usually take?",
     answer:
-      "A web design and build project can last around 12-14 weeks, whereas brand-into-website-and-marketing can take 6 months or more.",
+      "A typical web design and build runs around 12\u201314 weeks, whereas a full brand-into-website-and-marketing engagement can take 6 months or more.",
   },
   {
     question: "Can your creative agency accommodate tight deadlines?",
     answer:
-      "Sure thing! We\u2019re ready to mobilise our design and development teams, prioritising the essentials to turn your dream site from a fast-approaching deadline to a delivered reality.",
+      "Absolutely. We\u2019re ready to mobilise our design and development teams, prioritising the essentials to turn a fast-approaching deadline into a delivered reality.",
   },
   {
-    question: "What does the web design process look like?",
+    question: "What does the design process look like?",
     answer:
-      "Our process is collaborative and transparent. We start with discovery and strategy, move into design concepts, iterate based on feedback, then build and launch.",
+      "Our process is collaborative and transparent. We start with discovery and strategy, move into design concepts, iterate based on your feedback, then build and launch.",
   },
   {
     question: "Do you offer brand strategy services?",
     answer:
-      "Absolutely. Brand strategy is at the heart of what we do. We help you define your positioning, voice, and visual identity.",
+      "Yes. Brand strategy is at the heart of what we do. We help you define your positioning, voice, and visual identity so your brand claims its space.",
   },
   {
     question: "Can you help with SEO and digital marketing?",
     answer:
-      "Yes! Our digital marketing team handles SEO, content strategy, social media, and paid campaigns.",
+      "Yes \u2014 our digital marketing team handles SEO, content marketing, social media, and paid campaigns. Data driven, creatively led, results oriented.",
   },
 ];
 

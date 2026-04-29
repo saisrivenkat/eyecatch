@@ -54,13 +54,13 @@ void main(){
   // Breathing pulse — the whole wave field expands and contracts
   float breath = sin(u_time * 0.8) * 0.12 + sin(u_time * 1.3) * 0.06;
 
-  // ── Colors ──
-  vec3 bg       = vec3(0.937);                    // #efefef
-  vec3 peach    = vec3(0.96, 0.89, 0.82);         // warm cream
-  vec3 cyan     = vec3(0.0, 0.75, 0.98);          // vivid cyan blue
-  vec3 magenta  = vec3(0.92, 0.05, 0.58);         // hot magenta pink
-  vec3 purple   = vec3(0.40, 0.10, 0.70);         // deep purple
-  vec3 lightBlue = vec3(0.75, 0.92, 1.0);         // soft blue edge
+  // ── Colors (same midnight palette, brightness pushed up) ──
+  vec3 bg        = vec3(0.055);                   // #0e0e0e — deep charcoal canvas
+  vec3 peach     = vec3(0.34, 0.26, 0.62);        // brighter indigo wash
+  vec3 cyan      = vec3(0.38, 0.88, 0.98);        // brighter teal accent
+  vec3 magenta   = vec3(0.46, 0.24, 0.82);        // brighter purple core
+  vec3 purple    = vec3(0.24, 0.16, 0.48);        // brighter violet overlap
+  vec3 lightBlue = vec3(0.70, 0.78, 1.00);        // brighter periwinkle highlight
 
   // ── Noise fields — fast time + strong cursor = heavy movement ──
   float n1 = snoise(vec2(uv.x * 1.5 + mx + t, uv.y * 1.2 + my + t * 0.8 + breath)) * 0.5 + 0.5;
@@ -102,20 +102,24 @@ void main(){
                        * smoothstep(0.45, 0.85, uv.x)
                        * 0.7;
 
-  // ── Compose ──
+  // ── Compose (opacities bumped up to let the brighter colors read fully) ──
   vec3 color = bg;
-  color = mix(color, peach, peachMask * 0.9);
-  color = mix(color, lightBlue, lightBlueMask);
-  color = mix(color, cyan, cyanMask * 0.95);
-  color = mix(color, magenta, magentaMask * 0.9);
+  color = mix(color, peach, peachMask * 0.78);
+  color = mix(color, lightBlue, lightBlueMask * 0.72);
+  color = mix(color, cyan, cyanMask * 0.75);
+  color = mix(color, magenta, magentaMask * 0.80);
   color = mix(color, purple, clamp(purpleMask, 0.0, 1.0) * 0.85);
 
-  // ── Edges ──
-  float rightEdgeFade = smoothstep(0.95, 1.0, uv.x);
-  color = mix(color, bg * 0.95, rightEdgeFade * 0.4);
+  // ── Edges (settle into the dark canvas at the right & bottom-right) ──
+  float rightEdgeFade = smoothstep(0.92, 1.0, uv.x);
+  color = mix(color, bg, rightEdgeFade * 0.7);
 
-  float brCorner = smoothstep(0.6, 1.0, uv.y) * smoothstep(0.7, 1.0, uv.x);
-  color = mix(color, purple * 0.7 + bg * 0.3, brCorner * 0.5);
+  float brCorner = smoothstep(0.55, 1.0, uv.y) * smoothstep(0.65, 1.0, uv.x);
+  color = mix(color, bg, brCorner * 0.65);
+
+  // ── Subtle vignette toward the bottom for depth ──
+  float vignette = smoothstep(0.85, 1.05, uv.y);
+  color = mix(color, bg, vignette * 0.5);
 
   gl_FragColor = vec4(color, 1.0);
 }

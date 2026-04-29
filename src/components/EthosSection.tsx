@@ -10,35 +10,35 @@ gsap.registerPlugin(ScrollTrigger);
 const principles = [
   {
     number: "01/",
-    title: "Design with guts.",
+    title: "Brand led. Strategy driven.",
     description:
-      "We build immersive, brand-led digital experiences that wow and work hard. The kind that raises eyebrows, sparks emotion, and moves people to act.",
+      "Bespoke design that works. We build immersive, brand-led digital experiences that wow, spark emotion, and move people to act.",
     media:
-      "linear-gradient(135deg, #f78da7 0%, #f5e960 40%, #7ad7f0 100%)",
+      "linear-gradient(135deg, #2a2a2a 0%, #525252 45%, #a3a3a3 100%)",
   },
   {
     number: "02/",
     title: "Nail the process.",
     description:
-      "We\u2019re collaborative, decisive, and clear from day one. You\u2019ll feel the momentum. You\u2019ll know where you stand. You\u2019ll have a team that knows when to lead, and when to listen.",
+      "Collaborative, decisive, clear from day one. You\u2019ll feel the momentum, know where you stand, and have a crew that knows when to lead and when to listen.",
     media:
-      "linear-gradient(135deg, #0f172a 0%, #334155 50%, #a5b4fc 100%)",
+      "linear-gradient(135deg, #0f0f0f 0%, #404040 50%, #8a8a8a 100%)",
   },
   {
     number: "03/",
     title: "Build to flex.",
     description:
-      "We\u2019re ready for your growth. In fact, we\u2019re rooting for it. Whether it\u2019s a new campaign, product, or pivot, we make sure your digital presence is set up to flex with you.",
+      "Ready for your growth. Whether it\u2019s a new campaign, product, or pivot, we ensure your digital presence flexes with you.",
     media:
-      "linear-gradient(135deg, #0ea5e9 0%, #22d3ee 45%, #67e8f9 100%)",
+      "linear-gradient(135deg, #3a3a3a 0%, #737373 45%, #c7c7c7 100%)",
   },
   {
     number: "04/",
     title: "Invest for ROI.",
     description:
-      "We don\u2019t just make things look pretty. We craft digital experiences that deliver tangible, measurable results\u2014because your growth is our benchmark.",
+      "We don\u2019t just make things look good\u2014we make them work. Every digital experience is crafted to deliver measurable results, because your growth is our benchmark.",
     media:
-      "linear-gradient(135deg, #111827 0%, #4b5563 60%, #f97316 100%)",
+      "linear-gradient(135deg, #050505 0%, #2e2e2e 55%, #d4d4d4 100%)",
   },
 ];
 
@@ -120,7 +120,7 @@ export function EthosSection() {
   return (
     <section
       ref={sectionRef}
-      className="bg-[#efefef] text-black"
+      className="bg-[#0e0e0e] text-white"
       style={{ padding: "120px 0", position: "relative", zIndex: 2 }}
     >
       <div className="container">
@@ -133,9 +133,9 @@ export function EthosSection() {
             marginBottom: "80px",
           }}
         >
-          Brand-led.
+          Brand led.
           <br />
-          Strategically built.
+          Strategy driven.
         </h2>
 
         <div className="flex flex-col">
@@ -145,7 +145,7 @@ export function EthosSection() {
               ref={(el) => {
                 itemRefs.current[i] = el;
               }}
-              className="group relative isolate overflow-hidden border-t border-black/10 first:border-t last:border-b py-12 md:py-16"
+              className="group relative isolate overflow-hidden border-t border-white/10 first:border-t last:border-b py-12 md:py-16"
               onMouseEnter={() => {
                 const media = itemRefs.current[i]?.querySelector(
                   ".ethos-media"
@@ -193,10 +193,11 @@ export function EthosSection() {
                 card.style.setProperty("--my", `${y}px`);
               }}
             >
-              <div className="ethos-line mb-10 h-px origin-left bg-black/15" />
+              <div className="ethos-line mb-10 h-px origin-left bg-white/15" />
 
-              <div className="relative grid gap-10 md:grid-cols-[1fr_1.1fr_0.9fr] md:items-center">
-                <div className="ethos-heading z-10">
+              <div className="relative grid gap-10 md:grid-cols-[minmax(0,auto)_minmax(0,1fr)_minmax(0,auto)] md:items-center">
+                {/* LEFT: number + title */}
+                <div className="ethos-heading z-10 md:max-w-[480px]">
                   <p className="mb-4 text-base opacity-50">{item.number}</p>
                   <h3
                     className="leading-[0.95] font-bold"
@@ -210,19 +211,23 @@ export function EthosSection() {
                   </h3>
                 </div>
 
-                <div className="ethos-desc relative z-10 rounded-2xl bg-white/60 px-2 py-4 text-lg leading-7 font-normal md:px-6 md:py-6 backdrop-blur-sm opacity-0 translate-y-3 transition-all duration-200 ease-out">
+                {/* MIDDLE: empty gap — the floating media plays inside this open space */}
+                <div aria-hidden className="hidden md:block" />
+
+                {/* RIGHT: description, opposite end of the row */}
+                <div className="ethos-desc z-10 md:max-w-[360px] md:text-right md:justify-self-end text-lg leading-7 font-normal text-white/80 opacity-0 translate-y-3 transition-all duration-200 ease-out">
                   {item.description}
                 </div>
 
-                {/* floating media that follows cursor */}
+                {/* Floating cursor-following media — defined box, follows the cursor over the whole row */}
                 <div
-                  className="ethos-media pointer-events-none absolute inset-0 left-[var(--mx,50%)] top-[var(--my,50%)] z-0 aspect-[5/6] w-[38vw] max-w-xl -translate-x-1/2 -translate-y-1/2 overflow-hidden rounded-2xl opacity-0 shadow-xl transition-[opacity,transform] duration-200 ease-out"
+                  className="ethos-media pointer-events-none absolute left-[var(--mx,50%)] top-[var(--my,50%)] z-0 aspect-[5/6] w-[28vw] max-w-[380px] -translate-x-1/2 -translate-y-1/2 overflow-hidden rounded-2xl opacity-0 shadow-2xl transition-[opacity,transform] duration-200 ease-out"
                   style={{
                     background: item.media,
                     transform: "translate(-50%, -50%) scale(0.96)",
                   }}
                 >
-                  <div className="absolute inset-0 bg-gradient-to-br from-black/5 via-transparent to-white/10" />
+                  <div className="absolute inset-0 bg-gradient-to-br from-black/30 via-transparent to-white/15" />
                 </div>
               </div>
             </div>

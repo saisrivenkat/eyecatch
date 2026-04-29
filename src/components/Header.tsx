@@ -1,9 +1,10 @@
 "use client";
 
 import { useEffect, useState } from "react";
+import Image from "next/image";
 import Link from "next/link";
 import { cn } from "@/lib/utils";
-import { KotaLogo, MenuIcon } from "@/components/icons";
+import { MenuIcon } from "@/components/icons";
 
 export function Header() {
   const [scrolled, setScrolled] = useState(false);
@@ -28,11 +29,18 @@ export function Header() {
       <div className="flex w-full justify-between items-center">
         {/* Left side */}
         <div className="flex items-center gap-4">
-          <Link href="/">
-            <KotaLogo className="w-[60px] h-[60px] text-black" />
+          <Link href="/" aria-label="EyeCatch — home" className="flex items-center">
+            <Image
+              src="/images/logo-eyecatch.svg"
+              alt="EyeCatch"
+              width={180}
+              height={47}
+              priority
+              className="h-[44px] w-auto"
+            />
           </Link>
-          <span className="hidden md:inline text-[13px] font-normal uppercase tracking-[1px] text-black">
-            Celebrating 13 years : 2013 - 2026
+          <span className="hidden md:inline text-[13px] font-normal uppercase tracking-[1px] text-white/80">
+            Hyderabad &amp; Vijayawada
           </span>
         </div>
 
@@ -43,7 +51,7 @@ export function Header() {
             className={cn(
               "group hidden sm:inline-flex items-center gap-2",
               "px-6 py-3.5",
-              "bg-black text-white",
+              "bg-white text-black",
               "rounded-full",
               "text-base font-medium",
               "no-underline",
@@ -60,7 +68,7 @@ export function Header() {
             className={cn(
               "w-[52px] h-[52px]",
               "rounded-full",
-              "border-[1.5px] border-black",
+              "border-[1.5px] border-white/40",
               "bg-transparent",
               "flex items-center justify-center",
               "cursor-pointer",
@@ -68,7 +76,7 @@ export function Header() {
             )}
             aria-label="Open menu"
           >
-            <MenuIcon className="w-[22px] text-black" />
+            <MenuIcon className="w-[22px] text-white" />
           </button>
         </div>
       </div>

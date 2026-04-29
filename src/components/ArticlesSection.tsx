@@ -8,15 +8,15 @@ const articles = [
     tags: ["Expertise", "Inspiration"],
   },
   {
-    title: "Design with guts: KOTA\u2019s manifesto for creative bravery",
+    title: "Design with guts: EyeCatch\u2019s manifesto for creative bravery",
     tags: ["Expertise", "Inspiration"],
   },
   {
-    title: "KOTA wins a Lovie award for Best Web Design \u2013 Aesthetic!",
+    title: "How EyeCatch builds brands that refuse to fade into the crowd",
     tags: ["Culture", "Our work"],
   },
   {
-    title: "Brand-First vs Dev-First: What actually sets KOTA apart",
+    title: "Brand-first vs dev-first: what actually sets EyeCatch apart",
     tags: ["Expertise"],
   },
   {
@@ -28,11 +28,11 @@ const articles = [
     tags: ["Inspiration"],
   },
   {
-    title: "Clutch names KOTA a 2024 Global Winner",
+    title: "Inside the EyeCatch studios \u2014 Hyderabad & Vijayawada",
     tags: ["Culture"],
   },
   {
-    title: "KOTA earns 2025 Great Place to Work Certification",
+    title: "What it\u2019s like working with the EyeCatch crew",
     tags: ["Culture"],
   },
   {

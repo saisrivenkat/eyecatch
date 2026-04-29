@@ -26,9 +26,9 @@ const montreal = localFont({
 });
 
 export const metadata: Metadata = {
-  title: "Web Design Agency London & NYC | Creative Digital Agency",
+  title: "EyeCatch | Design & Branding Agency — Hyderabad & Vijayawada",
   description:
-    "We're a creative web design and branding agency based in London that crafts beautiful work for brands who refuse to blend in.",
+    "EyeCatch is a creative design and branding agency rooted in Hyderabad and Vijayawada, shaping bold, beautiful narratives for brands that refuse to fade into the crowd.",
 };
 
 export default function RootLayout({
@@ -38,7 +38,7 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="en" className={`${montreal.variable} antialiased`}>
-      <body className="bg-kota-gray text-black font-montreal">
+      <body className="bg-kota-gray text-white font-montreal">
         <LenisProvider>{children}</LenisProvider>
       </body>
     </html>
