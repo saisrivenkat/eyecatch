@@ -225,3 +225,139 @@ html.lenis body {
 .link-underline:hover::after {
   width: 100%;
 }
+
+/* ====== Project detail (/work/[slug]) ambient & content motion ====== */
+@keyframes projectAmbientDrift1 {
+  0%, 100% { transform: translate(0%, 0%) scale(1); opacity: 0.9; }
+  25%      { transform: translate(14%, -10%) scale(1.18); opacity: 1; }
+  50%      { transform: translate(8%, 14%) scale(1.05); opacity: 0.85; }
+  75%      { transform: translate(-10%, 6%) scale(0.92); opacity: 0.95; }
+}
+
+@keyframes projectAmbientDrift2 {
+  0%, 100% { transform: translate(0%, 0%) scale(1); opacity: 0.85; }
+  33%      { transform: translate(-16%, 12%) scale(1.22); opacity: 1; }
+  66%      { transform: translate(12%, -8%) scale(1.05); opacity: 0.7; }
+}
+
+@keyframes projectAmbientDrift3 {
+  0%, 100% { transform: translate(0%, 0%) scale(1) rotate(0deg); opacity: 0.7; }
+  50%      { transform: translate(10%, 8%) scale(1.15) rotate(180deg); opacity: 1; }
+}
+
+@keyframes projectAmbientRingSpin {
+  from { transform: translate(-50%, -50%) rotate(0deg); }
+  to   { transform: translate(-50%, -50%) rotate(360deg); }
+}
+
+@keyframes projectAmbientSweep {
+  0%   { transform: translateX(-100%) skewX(-15deg); opacity: 0; }
+  20%  { opacity: 0.55; }
+  80%  { opacity: 0.55; }
+  100% { transform: translateX(150%) skewX(-15deg); opacity: 0; }
+}
+
+@keyframes projectGridDrift {
+  from { background-position: 0 0; }
+  to   { background-position: 0 -64px; }
+}
+
+@keyframes projectFadeUp {
+  from { opacity: 0; transform: translateY(36px); }
+  to   { opacity: 1; transform: translateY(0); }
+}
+
+@keyframes projectScaleIn {
+  from { opacity: 0; transform: scale(0.97); }
+  to   { opacity: 1; transform: scale(1); }
+}
+
+@keyframes projectLineExtend {
+  from { transform: scaleX(0); }
+  to   { transform: scaleX(1); }
+}
+
+@keyframes projectMarqueeDrift {
+  from { transform: translateX(0); }
+  to   { transform: translateX(-50%); }
+}
+
+.project-ambient-orb-1 {
+  animation: projectAmbientDrift1 18s ease-in-out infinite;
+  will-change: transform, opacity;
+}
+.project-ambient-orb-2 {
+  animation: projectAmbientDrift2 22s ease-in-out -6s infinite;
+  will-change: transform, opacity;
+}
+.project-ambient-orb-3 {
+  animation: projectAmbientDrift3 26s ease-in-out -10s infinite;
+  will-change: transform, opacity;
+}
+.project-ambient-ring {
+  animation: projectAmbientRingSpin 60s linear infinite;
+  will-change: transform;
+}
+.project-ambient-sweep {
+  animation: projectAmbientSweep 14s ease-in-out infinite;
+  will-change: transform, opacity;
+}
+.project-ambient-grid {
+  background-image:
+    radial-gradient(circle, rgba(255,255,255,0.07) 1px, transparent 1px);
+  background-size: 36px 36px;
+  -webkit-mask-image: radial-gradient(ellipse at center, black 20%, transparent 75%);
+          mask-image: radial-gradient(ellipse at center, black 20%, transparent 75%);
+  animation: projectGridDrift 14s linear infinite;
+  will-change: background-position;
+}
+
+.project-fade-up {
+  opacity: 0;
+  transform: translateY(36px);
+  animation: projectFadeUp 1.05s cubic-bezier(0.22, 1, 0.36, 1) forwards;
+}
+.project-scale-in {
+  opacity: 0;
+  transform: scale(0.97);
+  animation: projectScaleIn 1.1s cubic-bezier(0.22, 1, 0.36, 1) forwards;
+}
+.project-line-extend {
+  transform-origin: left center;
+  transform: scaleX(0);
+  animation: projectLineExtend 1.2s cubic-bezier(0.65, 0, 0.35, 1) forwards;
+}
+
+.project-marquee {
+  animation: projectMarqueeDrift 50s linear infinite;
+  will-change: transform;
+}
+
+/* Title char entrance — reused class so per-letter delay can be inline */
+.project-title-char {
+  display: inline-block;
+  opacity: 0;
+  transform: translateY(72px) rotateX(-30deg);
+  animation: charReveal 1s cubic-bezier(0.22, 1, 0.36, 1) forwards;
+}
+
+/* Reduce motion preference — kill all the noise */
+@media (prefers-reduced-motion: reduce) {
+  .project-ambient-orb-1,
+  .project-ambient-orb-2,
+  .project-ambient-orb-3,
+  .project-ambient-grid,
+  .project-ambient-ring,
+  .project-ambient-sweep,
+  .project-marquee {
+    animation: none !important;
+  }
+  .project-fade-up,
+  .project-scale-in,
+  .project-line-extend,
+  .project-title-char {
+    animation-duration: 0.001s !important;
+    opacity: 1 !important;
+    transform: none !important;
+  }
+}
