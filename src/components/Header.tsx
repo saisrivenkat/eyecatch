@@ -42,30 +42,10 @@ export function Header() {
                 className="h-[44px] w-auto"
               />
             </Link>
-            <span className="hidden md:inline text-[13px] font-normal uppercase tracking-[1px] text-white/80">
-              Hyderabad &amp; Vijayawada
-            </span>
           </div>
 
           {/* Right side */}
           <div className="flex items-center gap-3">
-            <Link
-              href="/contact"
-              className={cn(
-                "group hidden sm:inline-flex items-center gap-2",
-                "px-6 py-3.5",
-                "bg-white text-black",
-                "rounded-full",
-                "text-base font-medium",
-                "no-underline",
-                "hover:opacity-85 transition-opacity duration-200"
-              )}
-            >
-              Hire us
-              <span aria-hidden="true" className="btn-arrow">
-                &rarr;
-              </span>
-            </Link>
             <button
               type="button"
               onClick={() => setMenuOpen(true)}

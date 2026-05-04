@@ -136,27 +136,6 @@ export function WorkSection() {
           <ScrollReveal className="md:col-span-2" delay={0}>
             <ProjectCardComponent project={projects[3]} />
           </ScrollReveal>
-
-          {/* Row 4: two small cards */}
-          <ScrollReveal delay={0.05}>
-            <ProjectCardComponent project={projects[4]} />
-          </ScrollReveal>
-          <ScrollReveal delay={0.1}>
-            <ProjectCardComponent project={projects[5]} />
-          </ScrollReveal>
-
-          {/* Row 5: large card full width */}
-          <ScrollReveal className="md:col-span-2" delay={0}>
-            <ProjectCardComponent project={projects[6]} />
-          </ScrollReveal>
-
-          {/* Row 6: two small cards */}
-          <ScrollReveal delay={0.05}>
-            <ProjectCardComponent project={projects[7]} />
-          </ScrollReveal>
-          <ScrollReveal delay={0.1}>
-            <ProjectCardComponent project={projects[8]} />
-          </ScrollReveal>
         </div>
       </div>
     </section>

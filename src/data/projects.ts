@@ -58,49 +58,6 @@ export const projects: Project[] = [
     image: "/images/projects/art-telangana.jpg",
     size: "large",
   },
-  {
-    slug: "allakas",
-    title: "Allakas",
-    category: "Branding",
-    description:
-      "With its tagline “Anywear, Everywear,” the store curates trendy fashion at budget-friendly prices.",
-    image: "/images/projects/allakas.jpg",
-    size: "small",
-  },
-  {
-    slug: "gv-mall",
-    title: "GV Mall",
-    category: "Branding",
-    description:
-      "Serving the two Telugu-speaking states, this mall is both expansive in choice and economical in cost.",
-    image: "/images/projects/gv-mall.jpg",
-    size: "small",
-  },
-  {
-    slug: "mithai-potlam",
-    title: "Mithai Potlam",
-    category: "Branding",
-    description: "A delightful package of sweet nothings and namkeen somethings.",
-    image: "/images/projects/mithai-potlam.jpg",
-    size: "large",
-  },
-  {
-    slug: "lucky-shopping-mall",
-    title: "Lucky Shopping Mall",
-    category: "Branding",
-    description: "Fashion takes flight on the wings of luck, bringing style in abundance.",
-    image: "/images/projects/lucky-shopping-mall.jpg",
-    size: "small",
-  },
-  {
-    slug: "subhapradam",
-    title: "Subhapradam",
-    category: "Branding",
-    description:
-      "For shopping that puts family first, Subhapradam Mall offers a blend of bliss and blessing.",
-    image: "/images/projects/subhapradam.jpg",
-    size: "small",
-  },
 ];
 
 export function getProjectBySlug(slug: string): Project | undefined {

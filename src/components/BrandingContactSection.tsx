@@ -1,7 +1,7 @@
 "use client";
 
 import { ScrollReveal } from "@/components/ScrollReveal";
-import { IcosahedronBackground } from "@/components/IcosahedronBackground";
+import { ContactWavesBackground } from "@/components/ContactWavesBackground";
 
 export function BrandingContactSection() {
   return (
@@ -14,7 +14,7 @@ export function BrandingContactSection() {
         overflow: "hidden",
       }}
     >
-      <IcosahedronBackground />
+      <ContactWavesBackground />
 
       <div
         className="container"

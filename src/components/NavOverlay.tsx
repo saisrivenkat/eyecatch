@@ -13,7 +13,6 @@ interface NavLink {
 const links: NavLink[] = [
   { label: "Home", href: "/", caption: "Studio overview" },
   { label: "Portfolio", href: "/services/branding", caption: "Branding case studies" },
-  { label: "Work", href: "/#work", caption: "Featured projects" },
   { label: "Contact", href: "mailto:hello@eyecatch.in", caption: "Hire EyeCatch" },
 ];
 

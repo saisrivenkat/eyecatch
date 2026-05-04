@@ -1,7 +1,7 @@
 "use client";
 
 import { ScrollReveal } from "@/components/ScrollReveal";
-import { IcosahedronBackground } from "@/components/IcosahedronBackground";
+import { CelebrationBackground } from "@/components/CelebrationBackground";
 
 export function CtaSection() {
   return (
@@ -9,7 +9,7 @@ export function CtaSection() {
       className="bg-black text-white"
       style={{ padding: "120px 0", textAlign: "center", position: "relative", zIndex: 2, overflow: "hidden" }}
     >
-      <IcosahedronBackground />
+      <CelebrationBackground />
       <div className="container" style={{ position: "relative", zIndex: 1 }}>
         <ScrollReveal distance={40}>
           <p style={{ fontSize: "20px", marginBottom: "24px" }}>

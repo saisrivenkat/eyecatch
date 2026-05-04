@@ -32,6 +32,19 @@
     overflow-x: hidden;
   }
 
+  /* Custom cursor — hide default on fine-pointer devices */
+  @media (pointer: fine) {
+    html,
+    body {
+      cursor: none !important;
+    }
+    body *,
+    body *::before,
+    body *::after {
+      cursor: none !important;
+    }
+  }
+
   ::selection {
     background-color: var(--color-kota-white);
     color: var(--color-kota-black);

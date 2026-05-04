@@ -1,6 +1,7 @@
 import type { Metadata } from "next";
 import localFont from "next/font/local";
 import { LenisProvider } from "@/components/LenisProvider";
+import { CustomCursor } from "@/components/CustomCursor";
 import "./globals.css";
 
 const montreal = localFont({
@@ -39,6 +40,7 @@ export default function RootLayout({
   return (
     <html lang="en" className={`${montreal.variable} antialiased`}>
       <body className="bg-kota-gray text-white font-montreal">
+        <CustomCursor />
         <LenisProvider>{children}</LenisProvider>
       </body>
     </html>

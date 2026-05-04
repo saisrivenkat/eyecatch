@@ -54,13 +54,13 @@ void main(){
   // Breathing pulse — the whole wave field expands and contracts
   float breath = sin(u_time * 0.8) * 0.12 + sin(u_time * 1.3) * 0.06;
 
-  // ── Colors (same midnight palette, brightness pushed up) ──
-  vec3 bg        = vec3(0.055);                   // #0e0e0e — deep charcoal canvas
-  vec3 peach     = vec3(0.34, 0.26, 0.62);        // brighter indigo wash
-  vec3 cyan      = vec3(0.38, 0.88, 0.98);        // brighter teal accent
-  vec3 magenta   = vec3(0.46, 0.24, 0.82);        // brighter purple core
-  vec3 purple    = vec3(0.24, 0.16, 0.48);        // brighter violet overlap
-  vec3 lightBlue = vec3(0.70, 0.78, 1.00);        // brighter periwinkle highlight
+  // ── Colors (premium liquid-metal palette — wider tonal range for sharper specular) ──
+  vec3 bg        = vec3(0.04, 0.045, 0.05);       // near-black charcoal canvas
+  vec3 peach     = vec3(0.26, 0.28, 0.32);        // dark slate wash
+  vec3 cyan      = vec3(0.92, 0.95, 0.99);        // bright silver specular accent
+  vec3 magenta   = vec3(0.50, 0.53, 0.58);        // mid steel grey core
+  vec3 purple    = vec3(0.14, 0.16, 0.19);        // deep slate overlap
+  vec3 lightBlue = vec3(0.96, 0.97, 1.00);        // chrome highlight
 
   // ── Noise fields — fast time + strong cursor = heavy movement ──
   float n1 = snoise(vec2(uv.x * 1.5 + mx + t, uv.y * 1.2 + my + t * 0.8 + breath)) * 0.5 + 0.5;
@@ -120,6 +120,26 @@ void main(){
   // ── Subtle vignette toward the bottom for depth ──
   float vignette = smoothstep(0.85, 1.05, uv.y);
   color = mix(color, bg, vignette * 0.5);
+
+  // ── Metallic sheen sweep — single slow diagonal highlight, like light catching liquid mercury ──
+  float sheenAxis = uv.x * 0.78 + uv.y * 0.62;
+  float sheenPhase = mod(u_time * 0.05, 1.0) * 1.6 - 0.3;
+  // Wobble keeps the band organic; only noise-based, no scanline frequency
+  float wobble = (n2 - 0.5) * 0.08 + (n3 - 0.5) * 0.04;
+  float sheenDist = abs(sheenAxis - sheenPhase + wobble);
+  float sheen = smoothstep(0.22, 0.0, sheenDist);
+  float sheenCore = smoothstep(0.06, 0.0, sheenDist);
+
+  // Mask: only over mid-tone metal body, never over deep black or already-bright zones
+  float lum = dot(color, vec3(0.299, 0.587, 0.114));
+  float sheenMask = smoothstep(0.10, 0.50, lum) * (1.0 - smoothstep(0.78, 0.95, lum));
+  vec3 sheenTint = vec3(0.98, 0.99, 1.00);
+  color = mix(color, sheenTint, sheen * 0.14 * sheenMask);
+  color += sheenTint * sheenCore * 0.18 * sheenMask;
+
+  // ── Gentle contrast lift — keeps the polished metal range without clipping ──
+  color = (color - 0.5) * 1.04 + 0.5;
+  color = clamp(color, 0.0, 1.0);
 
   gl_FragColor = vec4(color, 1.0);
 }

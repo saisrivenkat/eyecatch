@@ -3,7 +3,6 @@ import { Header } from "@/components/Header";
 import { GradientBlob } from "@/components/GradientBlob";
 import { BrandingHeroSection } from "@/components/BrandingHeroSection";
 import { BrandingPillarsSection } from "@/components/BrandingPillarsSection";
-import { BrandingAuditSection } from "@/components/BrandingAuditSection";
 import { StatsSection } from "@/components/StatsSection";
 import { WorkSection } from "@/components/WorkSection";
 // import { FaqSection } from "@/components/FaqSection"; // disabled per content review
@@ -31,7 +30,6 @@ export default function BrandingPage() {
       <main className="relative z-2" style={{ backgroundColor: "transparent" }}>
         <BrandingHeroSection />
         <BrandingPillarsSection />
-        <BrandingAuditSection />
         <StatsSection />
         <WorkSection />
         {/* <FaqSection /> */}
