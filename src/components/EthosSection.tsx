@@ -102,8 +102,8 @@ export function EthosSection() {
   return (
     <section
       ref={sectionRef}
-      className="bg-[#0e0e0e] text-white"
-      style={{ padding: "120px 0", position: "relative", zIndex: 2 }}
+      className="text-white"
+      style={{ padding: "120px 0", position: "relative", zIndex: 2, backgroundColor: "rgba(0,0,0,0.28)" }}
     >
       <div className="container">
         <h2

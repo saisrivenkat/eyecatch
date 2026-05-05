@@ -56,8 +56,24 @@ export function TestimonialsSection() {
     }, 1000);
   }, [animating, order]);
 
+  const goPrev = useCallback(() => {
+    if (animating) return;
+    setAnimating(true);
+    // Pull the back card forward to become the new front — it transitions
+    // smoothly from its receded stack pose to the active position.
+    setOrder((prev) => {
+      const next = [...prev];
+      const back = next.pop()!;
+      next.unshift(back);
+      return next;
+    });
+    setTimeout(() => {
+      setAnimating(false);
+    }, 1000);
+  }, [animating]);
+
   return (
-    <section className="bg-kota-gray" style={{ padding: "120px 0", position: "relative", zIndex: 2 }}>
+    <section style={{ padding: "120px 0", position: "relative", zIndex: 2, backgroundColor: "rgba(0,0,0,0.15)" }}>
       <div className="container">
         <ScrollReveal>
           <h2
@@ -242,16 +258,27 @@ export function TestimonialsSection() {
             );
           })}
 
-          {/* Next arrow button — dark on dark canvas (matches Results) */}
-          <button
-            onClick={goNext}
-            className="absolute bottom-8 right-8 z-50 flex items-center justify-center w-14 h-14 rounded-full border-2 border-white/30 bg-black/60 backdrop-blur-sm text-white hover:bg-white hover:text-black hover:border-white transition-all duration-300 cursor-pointer"
-            aria-label="Next testimonial"
-          >
-            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
-              <polyline points="9 18 15 12 9 6" />
-            </svg>
-          </button>
+          {/* Prev / Next arrow buttons — dark on dark canvas (matches Results) */}
+          <div className="absolute bottom-8 right-8 z-50 flex items-center gap-3">
+            <button
+              onClick={goPrev}
+              className="flex items-center justify-center w-14 h-14 rounded-full border-2 border-white/30 bg-black/60 backdrop-blur-sm text-white hover:bg-white hover:text-black hover:border-white transition-all duration-300 cursor-pointer"
+              aria-label="Previous testimonial"
+            >
+              <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+                <polyline points="15 18 9 12 15 6" />
+              </svg>
+            </button>
+            <button
+              onClick={goNext}
+              className="flex items-center justify-center w-14 h-14 rounded-full border-2 border-white/30 bg-black/60 backdrop-blur-sm text-white hover:bg-white hover:text-black hover:border-white transition-all duration-300 cursor-pointer"
+              aria-label="Next testimonial"
+            >
+              <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+                <polyline points="9 18 15 12 9 6" />
+              </svg>
+            </button>
+          </div>
         </div>
       </div>
     </section>

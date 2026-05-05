@@ -94,7 +94,7 @@ function FaqItem({
 
 export function FaqSection() {
   return (
-    <section className="bg-black text-white" style={{ padding: "120px 0", position: "relative", zIndex: 2 }}>
+    <section className="text-white" style={{ padding: "120px 0", position: "relative", zIndex: 2, backgroundColor: "rgba(0,0,0,0.32)" }}>
       <div className="container">
         <ScrollReveal distance={60}>
           <h2

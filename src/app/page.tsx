@@ -9,7 +9,6 @@ import { BrandingAuditSection } from "@/components/BrandingAuditSection";
 import { StatsSection } from "@/components/StatsSection";
 import { PartnersSection } from "@/components/PartnersSection";
 import { TestimonialsSection } from "@/components/TestimonialsSection";
-import { ArticlesSection } from "@/components/ArticlesSection";
 import { FaqSection } from "@/components/FaqSection";
 import { CtaSection } from "@/components/CtaSection";
 import { Footer } from "@/components/Footer";
@@ -36,7 +35,6 @@ export default function Home() {
         <StatsSection />
         <PartnersSection />
         <TestimonialsSection />
-        <ArticlesSection />
         <FaqSection />
         <CtaSection />
       </main>

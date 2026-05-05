@@ -1,6 +1,6 @@
 "use client";
 
-import { useEffect, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 
 function SplitText({ text, baseDelay }: { text: string; baseDelay: number }) {
   return (
@@ -11,7 +11,7 @@ function SplitText({ text, baseDelay }: { text: string; baseDelay: number }) {
           className="hero-char"
           style={{ animationDelay: `${baseDelay + i * 0.04}s` }}
         >
-          {char === " " ? "\u00A0" : char}
+          {char === " " ? " " : char}
         </span>
       ))}
     </>
@@ -20,9 +20,41 @@ function SplitText({ text, baseDelay }: { text: string; baseDelay: number }) {
 
 export function HeroSection() {
   const [mounted, setMounted] = useState(false);
+  const headlineRef = useRef<HTMLDivElement>(null);
+  const subRef = useRef<HTMLParagraphElement>(null);
 
   useEffect(() => {
     setMounted(true);
+  }, []);
+
+  // Scroll-driven parallax — headline drifts up slower than the page,
+  // subtitle drifts faster, layered against the fixed metallic banner.
+  useEffect(() => {
+    const headline = headlineRef.current;
+    const sub = subRef.current;
+    if (!headline) return;
+
+    let raf = 0;
+    const update = () => {
+      const y = window.scrollY;
+      headline.style.transform = `translate3d(0, ${(y * 0.35).toFixed(2)}px, 0)`;
+      headline.style.opacity = String(Math.max(0, 1 - y / 600));
+      if (sub) {
+        sub.style.transform = `translate3d(0, ${(y * 0.18).toFixed(2)}px, 0)`;
+        sub.style.opacity = String(Math.max(0, 1 - y / 500));
+      }
+      raf = 0;
+    };
+    const onScroll = () => {
+      if (raf) return;
+      raf = requestAnimationFrame(update);
+    };
+    update();
+    window.addEventListener("scroll", onScroll, { passive: true });
+    return () => {
+      window.removeEventListener("scroll", onScroll);
+      if (raf) cancelAnimationFrame(raf);
+    };
   }, []);
 
   return (
@@ -32,9 +64,10 @@ export function HeroSection() {
     >
       {/* Main container */}
       <div className="container relative z-2 mx-auto h-full flex flex-col justify-center px-6 md:px-10 pb-10">
-        {/* Hero display text */}
+        {/* Hero display text — parallax target */}
         <div
-          className="select-none"
+          ref={headlineRef}
+          className="select-none will-change-transform"
           style={{
             fontSize: "clamp(48px, 9vw, 150px)",
             fontWeight: 400,
@@ -67,13 +100,13 @@ export function HeroSection() {
 
         {/* Subtitle — bottom right */}
         <p
-          className="absolute right-6 md:right-10 bottom-10 max-w-95 text-white max-md:static max-md:mt-10 max-md:max-w-full"
+          ref={subRef}
+          className="absolute right-6 md:right-10 bottom-10 max-w-95 text-white max-md:static max-md:mt-10 max-md:max-w-full will-change-transform"
           style={{
             fontSize: "21px",
             lineHeight: "27px",
             opacity: mounted ? 1 : 0,
-            transform: mounted ? "none" : "translateY(20px)",
-            transition: "opacity 0.8s ease 1.2s, transform 0.8s ease 1.2s",
+            transition: "opacity 0.8s ease 1.2s",
           }}
         >
           EyeCatch is a creative design and branding agency rooted in

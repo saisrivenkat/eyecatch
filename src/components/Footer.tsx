@@ -106,8 +106,8 @@ export function Footer() {
 
   return (
     <footer
-      className="bg-black text-white"
-      style={{ position: "relative", zIndex: 2 }}
+      className="text-white"
+      style={{ position: "relative", zIndex: 2, backgroundColor: "rgba(0,0,0,0.45)" }}
     >
       <div className="container" style={{ paddingTop: "80px", paddingBottom: "0" }}>
         {/* Top region: addresses + logo + pages, divided by a vertical rule */}

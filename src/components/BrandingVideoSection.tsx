@@ -1,42 +1,84 @@
 "use client";
 
-import { ScrollReveal } from "@/components/ScrollReveal";
+import { useEffect, useRef } from "react";
 
 export function BrandingVideoSection() {
+  const sectionRef = useRef<HTMLElement>(null);
+  const videoRef = useRef<HTMLVideoElement>(null);
+
+  // Subtle parallax — the video lifts a touch slower than the page so it
+  // appears anchored to the metallic background behind it.
+  useEffect(() => {
+    const section = sectionRef.current;
+    const video = videoRef.current;
+    if (!section || !video) return;
+
+    let raf = 0;
+    const update = () => {
+      const rect = section.getBoundingClientRect();
+      const center = rect.top + rect.height / 2 - window.innerHeight / 2;
+      const factor = -0.08;
+      video.style.transform = `translate3d(0, ${center * factor}px, 0) scale(1.08)`;
+      raf = 0;
+    };
+    const onScroll = () => {
+      if (raf) return;
+      raf = requestAnimationFrame(update);
+    };
+    update();
+    window.addEventListener("scroll", onScroll, { passive: true });
+    window.addEventListener("resize", onScroll);
+    return () => {
+      window.removeEventListener("scroll", onScroll);
+      window.removeEventListener("resize", onScroll);
+      if (raf) cancelAnimationFrame(raf);
+    };
+  }, []);
+
   return (
     <section
-      className="bg-[#0e0e0e]"
-      style={{ padding: "60px 0 80px", position: "relative", zIndex: 2 }}
+      ref={sectionRef}
+      style={{
+        padding: "60px 0 80px",
+        position: "relative",
+        zIndex: 2,
+        backgroundColor: "transparent",
+      }}
     >
       <div className="container">
-        <ScrollReveal distance={50} duration={0.9}>
+        <div
+          className="relative overflow-hidden"
+          style={{
+            aspectRatio: "16 / 9",
+            // Soft alpha mask so the video edges dissolve into the metallic
+            // background behind it instead of sitting in a hard frame.
+            WebkitMaskImage:
+              "radial-gradient(ellipse at center, rgba(0,0,0,1) 55%, rgba(0,0,0,0) 95%)",
+            maskImage:
+              "radial-gradient(ellipse at center, rgba(0,0,0,1) 55%, rgba(0,0,0,0) 95%)",
+          }}
+        >
+          <video
+            ref={videoRef}
+            className="absolute inset-0 h-full w-full object-cover will-change-transform"
+            src="/videos/Eyecatch-Branding-Video.mp4"
+            autoPlay
+            muted
+            loop
+            playsInline
+            preload="metadata"
+          />
+          {/* Subtle vignette to deepen the blend with the background tone */}
           <div
-            className="relative overflow-hidden rounded-[28px] md:rounded-[36px]"
+            aria-hidden
+            className="pointer-events-none absolute inset-0"
             style={{
-              aspectRatio: "16 / 9",
-              backgroundColor: "#0a0a0a",
-              boxShadow: "0 30px 80px rgba(0,0,0,0.45)",
+              background:
+                "radial-gradient(ellipse at center, rgba(0,0,0,0) 40%, rgba(14,14,14,0.55) 100%)",
+              mixBlendMode: "multiply",
             }}
-          >
-            <video
-              className="absolute inset-0 h-full w-full object-cover"
-              src="/videos/Eyecatch-Branding-Video.mp4"
-              autoPlay
-              muted
-              loop
-              playsInline
-              preload="metadata"
-            />
-            <div
-              aria-hidden
-              className="pointer-events-none absolute inset-0"
-              style={{
-                background:
-                  "linear-gradient(180deg, rgba(0,0,0,0.10) 0%, rgba(0,0,0,0) 35%, rgba(0,0,0,0) 65%, rgba(0,0,0,0.25) 100%)",
-              }}
-            />
-          </div>
-        </ScrollReveal>
+          />
+        </div>
       </div>
     </section>
   );

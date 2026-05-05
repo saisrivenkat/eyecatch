@@ -11,7 +11,7 @@ export function ProjectAmbientBackground() {
     <div
       aria-hidden
       className="fixed inset-0 overflow-hidden pointer-events-none"
-      style={{ zIndex: 0, backgroundColor: "#000" }}
+      style={{ zIndex: 1, backgroundColor: "rgba(0,0,0,0.55)" }}
     >
       {/* Slow-rotating conic ring — large, low-contrast wash */}
       <div
