@@ -101,10 +101,11 @@ export function HeroSection() {
         {/* Subtitle — bottom right */}
         <p
           ref={subRef}
-          className="absolute right-6 md:right-10 bottom-10 max-w-95 text-white max-md:static max-md:mt-10 max-md:max-w-full will-change-transform"
+          className="absolute right-6 md:right-10 bottom-10 text-white max-md:static max-md:mt-10 max-md:max-w-full will-change-transform"
           style={{
-            fontSize: "21px",
-            lineHeight: "27px",
+            fontSize: "clamp(18px, 1.4vw, 26px)",
+            lineHeight: 1.35,
+            maxWidth: "clamp(380px, 55vw, 900px)",
             opacity: mounted ? 1 : 0,
             transition: "opacity 0.8s ease 1.2s",
           }}

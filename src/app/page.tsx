@@ -5,7 +5,7 @@ import { BrandingVideoSection } from "@/components/BrandingVideoSection";
 import { ServicesSection } from "@/components/ServicesSection";
 import { EthosSection } from "@/components/EthosSection";
 import { WorkSection } from "@/components/WorkSection";
-import { BrandingAuditSection } from "@/components/BrandingAuditSection";
+import { TeamSection } from "@/components/TeamSection";
 import { StatsSection } from "@/components/StatsSection";
 import { PartnersSection } from "@/components/PartnersSection";
 import { TestimonialsSection } from "@/components/TestimonialsSection";
@@ -31,7 +31,7 @@ export default function Home() {
         <ServicesSection />
         <EthosSection />
         <WorkSection />
-        <BrandingAuditSection />
+        <TeamSection />
         <StatsSection />
         <PartnersSection />
         <TestimonialsSection />

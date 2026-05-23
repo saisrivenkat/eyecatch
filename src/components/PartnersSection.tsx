@@ -20,7 +20,7 @@ const partners = [
 
 export function PartnersSection() {
   return (
-    <section className="text-white" style={{ padding: "80px 0 64px", position: "relative", zIndex: 2, backgroundColor: "rgba(0,0,0,0.18)" }}>
+    <section className="text-white" style={{ padding: "80px 0 64px", position: "relative", zIndex: 2 }}>
       <div className="container">
         <ScrollReveal distance={60}>
           <div style={{ marginBottom: "60px" }}>

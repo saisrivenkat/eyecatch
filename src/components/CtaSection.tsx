@@ -12,7 +12,6 @@ export function CtaSection() {
         position: "relative",
         zIndex: 2,
         overflow: "hidden",
-        backgroundColor: "rgba(0,0,0,0.2)",
       }}
     >
       <div className="container" style={{ position: "relative", zIndex: 1 }}>

@@ -2,8 +2,12 @@
 
 import Image from "next/image";
 import Link from "next/link";
+import { useState } from "react";
 import { ScrollReveal } from "@/components/ScrollReveal";
 import { projects, type Project } from "@/data/projects";
+
+const INITIAL_VISIBLE = 3;
+const REVEAL_STEP = 3;
 
 function ProjectCardComponent({ project }: { project: Project }) {
   const isLarge = project.size === "large";
@@ -68,10 +72,14 @@ function ProjectCardComponent({ project }: { project: Project }) {
 }
 
 export function WorkSection() {
+  const [visibleCount, setVisibleCount] = useState(INITIAL_VISIBLE);
+  const visibleProjects = projects.slice(0, visibleCount);
+  const hasMore = visibleCount < projects.length;
+
   return (
     <section
       className="text-white"
-      style={{ padding: "120px 0", position: "relative", zIndex: 2, backgroundColor: "rgba(0,0,0,0.22)" }}
+      style={{ padding: "120px 0", position: "relative", zIndex: 2 }}
     >
       <div className="container">
         <ScrollReveal distance={60}>
@@ -119,24 +127,44 @@ export function WorkSection() {
           className="grid grid-cols-1 md:grid-cols-2"
           style={{ gap: "20px" }}
         >
-          {/* Row 1: large card full width */}
-          <ScrollReveal className="md:col-span-2" delay={0}>
-            <ProjectCardComponent project={projects[0]} />
-          </ScrollReveal>
-
-          {/* Row 2: two small cards */}
-          <ScrollReveal delay={0.05}>
-            <ProjectCardComponent project={projects[1]} />
-          </ScrollReveal>
-          <ScrollReveal delay={0.1}>
-            <ProjectCardComponent project={projects[2]} />
-          </ScrollReveal>
-
-          {/* Row 3: large card full width */}
-          <ScrollReveal className="md:col-span-2" delay={0}>
-            <ProjectCardComponent project={projects[3]} />
-          </ScrollReveal>
+          {visibleProjects.map((project, i) => (
+            <ScrollReveal
+              key={project.slug}
+              className={project.size === "large" ? "md:col-span-2" : ""}
+              delay={(i % REVEAL_STEP) * 0.05}
+            >
+              <ProjectCardComponent project={project} />
+            </ScrollReveal>
+          ))}
         </div>
+
+        {hasMore && (
+          <div className="mt-14 flex justify-center">
+            <button
+              type="button"
+              onClick={() =>
+                setVisibleCount((c) =>
+                  Math.min(projects.length, c + REVEAL_STEP),
+                )
+              }
+              className="group inline-flex items-center gap-3 rounded-full border border-white/20 px-7 py-3 text-white transition-all duration-200 hover:-translate-y-0.5 hover:border-white/45 hover:bg-white/5"
+              style={{
+                fontSize: "14px",
+                letterSpacing: "1.5px",
+                textTransform: "uppercase",
+                fontWeight: 500,
+              }}
+            >
+              See more
+              <span
+                aria-hidden
+                className="inline-block transition-transform duration-300 group-hover:translate-y-0.5"
+              >
+                &darr;
+              </span>
+            </button>
+          </div>
+        )}
       </div>
     </section>
   );

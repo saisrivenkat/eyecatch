@@ -1,6 +1,6 @@
 "use client";
 
-import { useEffect, useRef, useState } from "react";
+import { useEffect, useRef } from "react";
 import { gsap } from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
 
@@ -97,7 +97,8 @@ export function ServicesSection() {
   const sectionRef = useRef<HTMLElement>(null);
   const titleRef = useRef<HTMLHeadingElement>(null);
   const stageRef = useRef<HTMLDivElement>(null);
-  const [activeIdx, setActiveIdx] = useState(0);
+  const cardsRef = useRef<(HTMLDivElement | null)[]>([]);
+  const dotsRef = useRef<(HTMLSpanElement | null)[]>([]);
 
   useEffect(() => {
     const section = sectionRef.current;
@@ -105,9 +106,12 @@ export function ServicesSection() {
     const stage = stageRef.current;
     if (!section || !title || !stage) return;
 
+    const cards = cardsRef.current.filter(Boolean) as HTMLDivElement[];
+    const dots = dotsRef.current.filter(Boolean) as HTMLSpanElement[];
+    if (cards.length === 0) return;
+
     const triggers: ScrollTrigger[] = [];
 
-    // "Our Services" parallax — fades up as the title leaves the viewport
     const titleTween = gsap.to(title, {
       opacity: 0,
       y: -200,
@@ -124,31 +128,61 @@ export function ServicesSection() {
     });
     if (titleTween.scrollTrigger) triggers.push(titleTween.scrollTrigger);
 
-    // Card stage — pin and snap so a single scroll tick lands on the next card.
-    const cardCount = services.length;
-    const stageTrigger = ScrollTrigger.create({
-      trigger: stage,
-      start: "top top",
-      end: () => `+=${(cardCount - 1) * window.innerHeight}`,
-      pin: true,
-      pinSpacing: true,
-      snap: {
-        snapTo: 1 / (cardCount - 1),
-        duration: { min: 0.3, max: 0.6 },
-        ease: "power2.inOut",
-        delay: 0.05,
+    gsap.set(cards[0], { yPercent: 0, opacity: 1, scale: 1 });
+    for (let i = 1; i < cards.length; i++) {
+      gsap.set(cards[i], { yPercent: 100, opacity: 0, scale: 0.92 });
+    }
+
+    const setDot = (idx: number) => {
+      dots.forEach((dot, i) => {
+        if (!dot) return;
+        const active = i === idx;
+        dot.style.width = active ? "32px" : "12px";
+        dot.style.backgroundColor = active
+          ? "rgba(255,255,255,0.85)"
+          : "rgba(255,255,255,0.25)";
+      });
+    };
+    setDot(0);
+
+    const tl = gsap.timeline({
+      defaults: { ease: "none" },
+      scrollTrigger: {
+        trigger: stage,
+        start: "top top",
+        end: () => `+=${(cards.length - 1) * window.innerHeight}`,
+        pin: true,
+        pinSpacing: true,
+        scrub: 1,
+        invalidateOnRefresh: true,
+        onUpdate: (self) => {
+          const idx = Math.min(
+            cards.length - 1,
+            Math.round(self.progress * (cards.length - 1))
+          );
+          setDot(idx);
+        },
       },
-      onUpdate: (self) => {
-        const idx = Math.round(self.progress * (cardCount - 1));
-        setActiveIdx(idx);
-      },
-      invalidateOnRefresh: true,
     });
-    triggers.push(stageTrigger);
+
+    for (let i = 1; i < cards.length; i++) {
+      tl.to(
+        cards[i - 1],
+        { yPercent: -30, opacity: 0, scale: 0.95 },
+        i - 1
+      ).to(
+        cards[i],
+        { yPercent: 0, opacity: 1, scale: 1 },
+        i - 1
+      );
+    }
+
+    if (tl.scrollTrigger) triggers.push(tl.scrollTrigger);
 
     return () => {
       triggers.forEach((t) => t.kill());
       titleTween.kill();
+      tl.kill();
     };
   }, []);
 
@@ -156,9 +190,8 @@ export function ServicesSection() {
     <section
       ref={sectionRef}
       className="relative"
-      style={{ zIndex: 2, backgroundColor: "rgba(0,0,0,0.2)" }}
+      style={{ zIndex: 2 }}
     >
-      {/* Our Services title — pinned at viewport center, fades out as you scroll */}
       <h2
         ref={titleRef}
         className="flex items-center justify-center text-white"
@@ -173,52 +206,38 @@ export function ServicesSection() {
         Our Services
       </h2>
 
-      {/* Pinned card stage — one scroll tick = one card */}
       <div ref={stageRef} className="relative h-screen overflow-hidden">
         <div className="container mx-auto h-full px-6 flex items-center">
           <div
             className="relative w-full"
             style={{ height: "min(580px, 80vh)" }}
           >
-            {services.map((s, i) => {
-              const offset = i - activeIdx;
-              const isActive = offset === 0;
-              return (
-                <div
-                  key={s.heading}
-                  className="absolute inset-0 will-change-transform"
-                  style={{
-                    transform: isActive
-                      ? "translate3d(0, 0, 0) scale(1)"
-                      : `translate3d(0, ${
-                          offset > 0 ? 100 : -80
-                        }px, 0) scale(${offset > 0 ? 0.9 : 0.94})`,
-                    opacity: isActive ? 1 : 0,
-                    pointerEvents: isActive ? "auto" : "none",
-                    transition:
-                      "transform 0.6s cubic-bezier(0.22, 1, 0.36, 1), opacity 0.5s ease",
-                    zIndex: isActive ? 2 : 1,
-                  }}
-                >
-                  <ServicePanel {...s} />
-                </div>
-              );
-            })}
+            {services.map((s, i) => (
+              <div
+                key={s.heading}
+                ref={(el) => {
+                  cardsRef.current[i] = el;
+                }}
+                className="absolute inset-0 will-change-transform"
+              >
+                <ServicePanel {...s} />
+              </div>
+            ))}
           </div>
         </div>
 
-        {/* Card pagination indicator */}
         <div className="pointer-events-none absolute bottom-8 left-1/2 z-10 flex -translate-x-1/2 items-center gap-2">
           {services.map((s, i) => (
             <span
               key={s.heading}
-              className="block h-[3px] rounded-full transition-all duration-500"
+              ref={(el) => {
+                dotsRef.current[i] = el;
+              }}
+              className="block h-[3px] rounded-full"
               style={{
-                width: i === activeIdx ? "32px" : "12px",
-                backgroundColor:
-                  i === activeIdx
-                    ? "rgba(255,255,255,0.85)"
-                    : "rgba(255,255,255,0.25)",
+                width: "12px",
+                backgroundColor: "rgba(255,255,255,0.25)",
+                transition: "width 0.4s ease, background-color 0.4s ease",
               }}
             />
           ))}

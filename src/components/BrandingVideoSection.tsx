@@ -45,40 +45,20 @@ export function BrandingVideoSection() {
         backgroundColor: "transparent",
       }}
     >
-      <div className="container">
-        <div
-          className="relative overflow-hidden"
-          style={{
-            aspectRatio: "16 / 9",
-            // Soft alpha mask so the video edges dissolve into the metallic
-            // background behind it instead of sitting in a hard frame.
-            WebkitMaskImage:
-              "radial-gradient(ellipse at center, rgba(0,0,0,1) 55%, rgba(0,0,0,0) 95%)",
-            maskImage:
-              "radial-gradient(ellipse at center, rgba(0,0,0,1) 55%, rgba(0,0,0,0) 95%)",
-          }}
-        >
-          <video
-            ref={videoRef}
-            className="absolute inset-0 h-full w-full object-cover will-change-transform"
-            src="/videos/Eyecatch-Branding-Video.mp4"
-            autoPlay
-            muted
-            loop
-            playsInline
-            preload="metadata"
-          />
-          {/* Subtle vignette to deepen the blend with the background tone */}
-          <div
-            aria-hidden
-            className="pointer-events-none absolute inset-0"
-            style={{
-              background:
-                "radial-gradient(ellipse at center, rgba(0,0,0,0) 40%, rgba(14,14,14,0.55) 100%)",
-              mixBlendMode: "multiply",
-            }}
-          />
-        </div>
+      <div
+        className="overflow-hidden"
+        style={{ aspectRatio: "16 / 9", marginTop: "120px", width: "100%" }}
+      >
+        <video
+          ref={videoRef}
+          className="block h-full w-full object-cover will-change-transform"
+          src="/videos/Eyecatch-Branding-Video.mp4"
+          autoPlay
+          muted
+          loop
+          playsInline
+          preload="metadata"
+        />
       </div>
     </section>
   );
