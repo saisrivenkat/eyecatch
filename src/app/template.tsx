@@ -1,5 +1,6 @@
 "use client";
 
+import { usePathname } from "next/navigation";
 import { useEffect, useState } from "react";
 import { gsap } from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
@@ -13,23 +14,25 @@ export default function Template({
 }: {
   children: React.ReactNode;
 }) {
-  const [animating, setAnimating] = useState(true);
+  const pathname = usePathname();
+  const skipTransition = pathname?.startsWith("/admin") ?? false;
+  const [animating, setAnimating] = useState(!skipTransition);
 
   useEffect(() => {
+    if (skipTransition) return;
     window.scrollTo(0, 0);
 
     const id = window.setTimeout(() => {
       setAnimating(false);
-      // The wrapper's transform created a containing block for descendants —
-      // any pinned ScrollTriggers measured the wrong positions while it was
-      // active. Refresh now that the transform is gone.
       ScrollTrigger.refresh();
     }, TRANSITION_MS + 50);
 
     return () => window.clearTimeout(id);
-  }, []);
+  }, [skipTransition]);
 
   return (
-    <div className={animating ? "page-transition" : undefined}>{children}</div>
+    <div className={animating && !skipTransition ? "page-transition" : undefined}>
+      {children}
+    </div>
   );
 }

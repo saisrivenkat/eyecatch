@@ -13,6 +13,8 @@ import { FaqSection } from "@/components/FaqSection";
 import { CtaSection } from "@/components/CtaSection";
 import { Footer } from "@/components/Footer";
 
+export const dynamic = "force-dynamic";
+
 export default function Home() {
   return (
     <>
