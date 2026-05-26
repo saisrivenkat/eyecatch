@@ -32,7 +32,7 @@ export function PartnersSection() {
                 lineHeight: 1.0,
               }}
             >
-              Partners
+              Clients
             </h2>
           </div>
         </ScrollReveal>

@@ -2,7 +2,6 @@
 
 import Image from "next/image";
 import Link from "next/link";
-import { useState } from "react";
 import { ScrollReveal } from "@/components/ScrollReveal";
 import type { Project } from "@/data/projects";
 
@@ -72,9 +71,8 @@ function ProjectCardComponent({ project }: { project: Project }) {
 }
 
 export function WorkGrid({ projects }: { projects: Project[] }) {
-  const [visibleCount, setVisibleCount] = useState(INITIAL_VISIBLE);
-  const visibleProjects = projects.slice(0, visibleCount);
-  const hasMore = visibleCount < projects.length;
+  const visibleProjects = projects.slice(0, INITIAL_VISIBLE);
+  const hasMore = projects.length > INITIAL_VISIBLE;
 
   if (projects.length === 0) {
     return (
@@ -103,13 +101,8 @@ export function WorkGrid({ projects }: { projects: Project[] }) {
 
       {hasMore && (
         <div className="mt-14 flex justify-center">
-          <button
-            type="button"
-            onClick={() =>
-              setVisibleCount((c) =>
-                Math.min(projects.length, c + REVEAL_STEP),
-              )
-            }
+          <Link
+            href="/services/branding"
             className="group inline-flex items-center gap-3 rounded-full border border-white/20 px-7 py-3 text-white transition-all duration-200 hover:-translate-y-0.5 hover:border-white/45 hover:bg-white/5"
             style={{
               fontSize: "14px",
@@ -121,11 +114,11 @@ export function WorkGrid({ projects }: { projects: Project[] }) {
             See more
             <span
               aria-hidden
-              className="inline-block transition-transform duration-300 group-hover:translate-y-0.5"
+              className="inline-block transition-transform duration-300 group-hover:translate-x-0.5"
             >
-              &darr;
+              &rarr;
             </span>
-          </button>
+          </Link>
         </div>
       )}
     </>
