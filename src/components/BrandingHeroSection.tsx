@@ -32,9 +32,9 @@ export function BrandingHeroSection() {
         <p
           className="text-white/80"
           style={{
-            fontSize: "clamp(18px, 1.6vw, 22px)",
-            lineHeight: 1.45,
-            maxWidth: "620px",
+            fontSize: "clamp(18px, 1.5vw, 26px)",
+            lineHeight: 1.4,
+            maxWidth: "clamp(620px, 60vw, 1000px)",
           }}
         >
           We build brands that own a room before they say a word — strategy,

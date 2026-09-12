@@ -9,6 +9,8 @@ import { WorkSection } from "@/components/WorkSection";
 import { BrandingContactSection } from "@/components/BrandingContactSection";
 import { Footer } from "@/components/Footer";
 
+export const dynamic = "force-dynamic";
+
 export const metadata: Metadata = {
   title: "Branding | EyeCatch — Hyderabad & Vijayawada",
   description:
@@ -31,7 +33,7 @@ export default function BrandingPage() {
         <BrandingHeroSection />
         <BrandingPillarsSection />
         <StatsSection />
-        <WorkSection />
+        <WorkSection limit={4} moreHref="/work" showMore />
         {/* <FaqSection /> */}
         <BrandingContactSection />
       </main>

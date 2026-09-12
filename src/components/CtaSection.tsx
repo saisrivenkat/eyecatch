@@ -1,15 +1,19 @@
 "use client";
 
 import { ScrollReveal } from "@/components/ScrollReveal";
-import { CelebrationBackground } from "@/components/CelebrationBackground";
 
 export function CtaSection() {
   return (
     <section
-      className="bg-black text-white"
-      style={{ padding: "120px 0", textAlign: "center", position: "relative", zIndex: 2, overflow: "hidden" }}
+      className="text-white"
+      style={{
+        padding: "120px 0",
+        textAlign: "center",
+        position: "relative",
+        zIndex: 2,
+        overflow: "hidden",
+      }}
     >
-      <CelebrationBackground />
       <div className="container" style={{ position: "relative", zIndex: 1 }}>
         <ScrollReveal distance={40}>
           <p style={{ fontSize: "20px", marginBottom: "24px" }}>

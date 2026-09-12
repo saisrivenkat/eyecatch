@@ -1,5 +1,6 @@
 import type { Metadata } from "next";
 import localFont from "next/font/local";
+import { Analytics } from "@vercel/analytics/next";
 import { LenisProvider } from "@/components/LenisProvider";
 import { CustomCursor } from "@/components/CustomCursor";
 import "./globals.css";
@@ -42,6 +43,7 @@ export default function RootLayout({
       <body className="bg-kota-gray text-white font-montreal">
         <CustomCursor />
         <LenisProvider>{children}</LenisProvider>
+        <Analytics />
       </body>
     </html>
   );

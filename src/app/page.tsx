@@ -5,14 +5,15 @@ import { BrandingVideoSection } from "@/components/BrandingVideoSection";
 import { ServicesSection } from "@/components/ServicesSection";
 import { EthosSection } from "@/components/EthosSection";
 import { WorkSection } from "@/components/WorkSection";
-import { BrandingAuditSection } from "@/components/BrandingAuditSection";
+import { TeamSection } from "@/components/TeamSection";
 import { StatsSection } from "@/components/StatsSection";
 import { PartnersSection } from "@/components/PartnersSection";
 import { TestimonialsSection } from "@/components/TestimonialsSection";
-import { ArticlesSection } from "@/components/ArticlesSection";
 import { FaqSection } from "@/components/FaqSection";
 import { CtaSection } from "@/components/CtaSection";
 import { Footer } from "@/components/Footer";
+
+export const dynamic = "force-dynamic";
 
 export default function Home() {
   return (
@@ -31,12 +32,11 @@ export default function Home() {
         <BrandingVideoSection />
         <ServicesSection />
         <EthosSection />
-        <WorkSection />
-        <BrandingAuditSection />
+        <WorkSection limit={4} moreHref="/services/branding" showMore />
+        <TeamSection />
         <StatsSection />
         <PartnersSection />
         <TestimonialsSection />
-        <ArticlesSection />
         <FaqSection />
         <CtaSection />
       </main>

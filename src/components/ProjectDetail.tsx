@@ -3,6 +3,7 @@
 import Link from "next/link";
 import { useEffect, useRef, useState } from "react";
 import { projects, type Project } from "@/data/projects";
+import { useParallax } from "@/hooks/useParallax";
 
 const eyebrowStyle = {
   fontSize: "11px",
@@ -63,6 +64,14 @@ export function ProjectDetail({ project }: { project: Project }) {
   const video = useReveal<HTMLDivElement>();
   const storyBlock = useReveal<HTMLDivElement>();
   const banner = useReveal<HTMLDivElement>();
+
+  /* Parallax targets — content layers drift at different speeds against the
+     fixed metallic banner behind the page. */
+  const heroParallaxRef = useParallax<HTMLHeadingElement>({ speed: -0.18 });
+  const marqueeParallaxRef = useParallax<HTMLDivElement>({ speed: -0.08 });
+  const videoParallaxRef = useParallax<HTMLDivElement>({ speed: -0.12 });
+  const storyParallaxRef = useParallax<HTMLDivElement>({ speed: -0.1 });
+  const bannerParallaxRef = useParallax<HTMLDivElement>({ speed: -0.15 });
 
   /* Scroll progress for the thin top bar */
   const [progress, setProgress] = useState(0);
@@ -125,9 +134,10 @@ export function ProjectDetail({ project }: { project: Project }) {
             {project.category}
           </p>
 
-          {/* Big animated title */}
+          {/* Big animated title — parallax target */}
           <h1
-            className="text-white"
+            ref={heroParallaxRef}
+            className="text-white will-change-transform"
             style={{
               fontSize: "clamp(56px, 11vw, 184px)",
               fontWeight: 300,
@@ -163,18 +173,20 @@ export function ProjectDetail({ project }: { project: Project }) {
           backgroundColor: "rgba(255,255,255,0.02)",
         }}
       >
-        <div
-          className="project-marquee whitespace-nowrap"
-          style={{
-            fontSize: "clamp(28px, 4vw, 56px)",
-            fontWeight: 300,
-            letterSpacing: "-0.015em",
-            color: "rgba(255,255,255,0.22)",
-          }}
-          aria-hidden
-        >
-          <span style={{ paddingRight: "60px" }}>{marqueeRow}</span>
-          <span style={{ paddingRight: "60px" }}>{marqueeRow}</span>
+        <div ref={marqueeParallaxRef} className="will-change-transform">
+          <div
+            className="project-marquee whitespace-nowrap"
+            style={{
+              fontSize: "clamp(28px, 4vw, 56px)",
+              fontWeight: 300,
+              letterSpacing: "-0.015em",
+              color: "rgba(255,255,255,0.22)",
+            }}
+            aria-hidden
+          >
+            <span style={{ paddingRight: "60px" }}>{marqueeRow}</span>
+            <span style={{ paddingRight: "60px" }}>{marqueeRow}</span>
+          </div>
         </div>
       </section>
 
@@ -229,7 +241,10 @@ export function ProjectDetail({ project }: { project: Project }) {
           }}
         >
           <div
-            className={video.visible ? "project-scale-in" : ""}
+            ref={videoParallaxRef}
+            className={`will-change-transform ${
+              video.visible ? "project-scale-in" : ""
+            }`}
             style={{
               opacity: video.visible ? undefined : 0,
               animationDelay: "0.05s",
@@ -270,7 +285,8 @@ export function ProjectDetail({ project }: { project: Project }) {
         }}
       >
         <div
-          className="mx-auto"
+          ref={storyParallaxRef}
+          className="mx-auto will-change-transform"
           style={{ maxWidth: "880px", padding: "0 26px" }}
         >
           <p
@@ -314,7 +330,10 @@ export function ProjectDetail({ project }: { project: Project }) {
           }}
         >
           <div
-            className={banner.visible ? "project-scale-in" : ""}
+            ref={bannerParallaxRef}
+            className={`will-change-transform ${
+              banner.visible ? "project-scale-in" : ""
+            }`}
             style={{
               opacity: banner.visible ? undefined : 0,
             }}

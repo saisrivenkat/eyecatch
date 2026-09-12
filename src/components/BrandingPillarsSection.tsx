@@ -1,5 +1,7 @@
 "use client";
 
+import Image from "next/image";
+
 import { ScrollReveal } from "@/components/ScrollReveal";
 
 interface Step {
@@ -7,7 +9,7 @@ interface Step {
   title: string;
   blurb: string;
   bullets: string[];
-  video: string;
+  image: string;
   accent: string;
 }
 
@@ -23,7 +25,7 @@ const steps: Step[] = [
       "Positioning concepts",
       "Narrative platform",
     ],
-    video: "/videos/Short-Preview-homepage.mp4",
+    image: "/images/ideation.png",
     accent: "linear-gradient(135deg, #2a2a2a 0%, #525252 45%, #a3a3a3 100%)",
   },
   {
@@ -37,7 +39,7 @@ const steps: Step[] = [
       "Type, colour, motion language",
       "Touchpoint design",
     ],
-    video: "/videos/GOAT-FeatureVideo.mp4",
+    image: "/images/transformation.png",
     accent: "linear-gradient(135deg, #0f0f0f 0%, #404040 50%, #8a8a8a 100%)",
   },
   {
@@ -51,7 +53,7 @@ const steps: Step[] = [
       "Launch playbook",
       "Quarterly stewardship",
     ],
-    video: "/videos/isi-vid2-1.mp4",
+    image: "/images/handover.png",
     accent: "linear-gradient(135deg, #3a3a3a 0%, #737373 45%, #c7c7c7 100%)",
   },
 ];
@@ -91,16 +93,13 @@ function StepRow({ step, reverse }: { step: Step; reverse: boolean }) {
             className="step-orb pointer-events-none absolute -right-12 -top-12 h-44 w-44 rounded-full opacity-60 blur-2xl transition-opacity duration-500 group-hover:opacity-100"
             style={{ background: step.accent }}
           />
-          <video
-            autoPlay
-            muted
-            loop
-            playsInline
-            preload="metadata"
-            className="absolute inset-0 h-full w-full object-cover opacity-90 transition-transform duration-[1200ms] ease-out group-hover:scale-[1.06]"
-          >
-            <source src={step.video} type="video/mp4" />
-          </video>
+          <Image
+            src={step.image}
+            alt={step.title}
+            fill
+            sizes="(max-width: 768px) 100vw, 50vw"
+            className="object-cover opacity-90 transition-transform duration-[1200ms] ease-out group-hover:scale-[1.06]"
+          />
           <div className="absolute inset-0 bg-gradient-to-t from-black/55 via-black/10 to-transparent" />
           <span
             className="absolute left-7 top-7 text-white/85"

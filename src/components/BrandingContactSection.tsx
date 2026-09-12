@@ -1,25 +1,18 @@
 "use client";
 
 import { ScrollReveal } from "@/components/ScrollReveal";
-import { ContactWavesBackground } from "@/components/ContactWavesBackground";
 
 export function BrandingContactSection() {
   return (
     <section
-      className="bg-black text-white"
+      className="text-white"
       style={{
         padding: "140px 0",
         position: "relative",
         zIndex: 2,
-        overflow: "hidden",
       }}
     >
-      <ContactWavesBackground />
-
-      <div
-        className="container"
-        style={{ position: "relative", zIndex: 1 }}
-      >
+      <div className="container" style={{ position: "relative", zIndex: 1 }}>
         <ScrollReveal distance={50}>
           <div className="mx-auto" style={{ maxWidth: "880px", textAlign: "center" }}>
             <p
