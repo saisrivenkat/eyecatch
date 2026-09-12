@@ -44,6 +44,7 @@
     "@payloadcms/next": "^3.84.1",
     "@payloadcms/richtext-lexical": "^3.84.1",
     "@payloadcms/storage-vercel-blob": "^3.84.1",
+    "@vercel/analytics": "^2.0.1",
     "@vercel/blob": "^2.4.0",
     "aws4fetch": "^1.0.20",
     "class-variance-authority": "^0.7.1",
