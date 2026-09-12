@@ -2,7 +2,23 @@ import { ScrollReveal } from "@/components/ScrollReveal";
 import { WorkGrid } from "@/components/WorkGrid";
 import { getAllProjects } from "@/lib/projects-store";
 
-export async function WorkSection() {
+interface WorkSectionProps {
+  /** Max cards to render. Omit to render every project. */
+  limit?: number;
+  /** Where the "See more" button points. */
+  moreHref?: string;
+  /**
+   * Force the "See more" button on or off. Omit to show it only when the
+   * limit actually hides projects.
+   */
+  showMore?: boolean;
+}
+
+export async function WorkSection({
+  limit,
+  moreHref,
+  showMore,
+}: WorkSectionProps = {}) {
   const projects = await getAllProjects();
 
   return (
@@ -52,7 +68,12 @@ export async function WorkSection() {
           </div>
         </ScrollReveal>
 
-        <WorkGrid projects={projects} />
+        <WorkGrid
+          projects={projects}
+          limit={limit}
+          moreHref={moreHref}
+          showMore={showMore}
+        />
       </div>
     </section>
   );

@@ -5,7 +5,6 @@ import Link from "next/link";
 import { ScrollReveal } from "@/components/ScrollReveal";
 import type { Project } from "@/data/projects";
 
-const INITIAL_VISIBLE = 3;
 const REVEAL_STEP = 3;
 
 function ProjectCardComponent({ project }: { project: Project }) {
@@ -70,9 +69,31 @@ function ProjectCardComponent({ project }: { project: Project }) {
   );
 }
 
-export function WorkGrid({ projects }: { projects: Project[] }) {
-  const visibleProjects = projects.slice(0, INITIAL_VISIBLE);
-  const hasMore = projects.length > INITIAL_VISIBLE;
+interface WorkGridProps {
+  projects: Project[];
+  /** Max cards to render. Omit to render every project. */
+  limit?: number;
+  /** Where the "See more" button points. */
+  moreHref?: string;
+  /**
+   * Force the "See more" button on or off. Omit to show it only when the
+   * limit actually hides projects.
+   */
+  showMore?: boolean;
+  /** Copy shown when there is nothing to render. */
+  emptyMessage?: string;
+}
+
+export function WorkGrid({
+  projects,
+  limit,
+  moreHref = "/work",
+  showMore,
+  emptyMessage = "No projects to show yet.",
+}: WorkGridProps) {
+  const visibleProjects =
+    typeof limit === "number" ? projects.slice(0, limit) : projects;
+  const hasMore = showMore ?? visibleProjects.length < projects.length;
 
   if (projects.length === 0) {
     return (
@@ -80,7 +101,7 @@ export function WorkGrid({ projects }: { projects: Project[] }) {
         className="text-white/55"
         style={{ fontSize: "15px", padding: "40px 0" }}
       >
-        No projects to show yet.
+        {emptyMessage}
       </p>
     );
   }
@@ -102,7 +123,7 @@ export function WorkGrid({ projects }: { projects: Project[] }) {
       {hasMore && (
         <div className="mt-14 flex justify-center">
           <Link
-            href="/services/branding"
+            href={moreHref}
             className="group inline-flex items-center gap-3 rounded-full border border-white/20 px-7 py-3 text-white transition-all duration-200 hover:-translate-y-0.5 hover:border-white/45 hover:bg-white/5"
             style={{
               fontSize: "14px",

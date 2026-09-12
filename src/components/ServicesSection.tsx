@@ -1,5 +1,6 @@
 "use client";
 
+import Image from "next/image";
 import { useEffect, useRef } from "react";
 import { gsap } from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
@@ -10,7 +11,7 @@ interface ServicePanelData {
   heading: string;
   tags: string[];
   description: string;
-  video: string;
+  image: string;
 }
 
 const services: ServicePanelData[] = [
@@ -25,25 +26,25 @@ const services: ServicePanelData[] = [
     ],
     description:
       "Crafting digital experiences where aesthetics meets ROI — turning heads and unlocking revenue with every click.",
-    video: "/videos/homepage.mp4",
+    image: "/images/design-development.png",
   },
   {
     heading: "Branding",
     tags: ["Brand strategy", "Tone of voice", "Visual identity"],
     description:
       "Building brands that cut through the noise. Bold identities that claim their space.",
-    video: "/videos/homepage.mp4",
+    image: "/images/branding.png",
   },
   {
     heading: "Digital Marketing",
     tags: ["SEO & content marketing", "Social media", "Paid media"],
     description:
       "Strategic marketing that meets your audience where they are. Data driven, creatively led, results oriented.",
-    video: "/videos/homepage.mp4",
+    image: "/images/digital-marketing.png",
   },
 ];
 
-function ServicePanel({ heading, tags, description, video }: ServicePanelData) {
+function ServicePanel({ heading, tags, description, image }: ServicePanelData) {
   return (
     <div className="relative flex h-full overflow-hidden max-lg:flex-col">
       <div
@@ -79,14 +80,13 @@ function ServicePanel({ heading, tags, description, video }: ServicePanelData) {
           {description}
         </p>
       </div>
-      <div className="relative z-2 flex-1">
-        <video
-          className="h-full w-full object-cover"
-          src={video}
-          autoPlay
-          muted
-          loop
-          playsInline
+      <div className="relative z-2 flex-1 overflow-hidden max-lg:min-h-[280px]">
+        <Image
+          src={image}
+          alt={heading}
+          fill
+          sizes="(max-width: 1024px) 100vw, 50vw"
+          className="object-cover"
         />
       </div>
     </div>

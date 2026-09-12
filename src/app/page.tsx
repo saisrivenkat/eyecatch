@@ -32,7 +32,7 @@ export default function Home() {
         <BrandingVideoSection />
         <ServicesSection />
         <EthosSection />
-        <WorkSection />
+        <WorkSection limit={4} moreHref="/services/branding" showMore />
         <TeamSection />
         <StatsSection />
         <PartnersSection />
