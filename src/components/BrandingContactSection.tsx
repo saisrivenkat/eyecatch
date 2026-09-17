@@ -7,7 +7,7 @@ export function BrandingContactSection() {
     <section
       className="text-white"
       style={{
-        padding: "140px 0",
+        padding: "clamp(72px, 15vw, 140px) 0",
         position: "relative",
         zIndex: 2,
       }}
@@ -28,11 +28,11 @@ export function BrandingContactSection() {
 
             <h2
               style={{
-                fontSize: "clamp(40px, 6vw, 84px)",
+                fontSize: "clamp(32px, 6vw, 84px)",
                 fontWeight: 400,
                 lineHeight: 1.02,
                 letterSpacing: "-0.02em",
-                marginBottom: "28px",
+                marginBottom: "clamp(18px, 4.5vw, 28px)",
               }}
             >
               Interested in working
@@ -43,10 +43,10 @@ export function BrandingContactSection() {
             <p
               className="mx-auto text-white/70"
               style={{
-                fontSize: "20px",
-                lineHeight: "30px",
+                fontSize: "clamp(16px, 4.2vw, 20px)",
+                lineHeight: 1.5,
                 maxWidth: "560px",
-                marginBottom: "40px",
+                marginBottom: "clamp(28px, 7vw, 40px)",
               }}
             >
               Drop us a line and tell us what the brand needs to do next. We
@@ -55,8 +55,8 @@ export function BrandingContactSection() {
 
             <a
               href="mailto:hello@eyecatch.in"
-              className="group inline-flex items-center gap-3 rounded-full bg-white px-8 py-4 text-black transition-all duration-200 hover:-translate-y-0.5"
-              style={{ fontSize: "18px", fontWeight: 500 }}
+              className="group inline-flex max-w-full items-center justify-center gap-3 break-all rounded-full bg-white px-6 py-4 text-black transition-all duration-200 hover:-translate-y-0.5 sm:break-normal sm:px-8"
+              style={{ fontSize: "clamp(15px, 4vw, 18px)", fontWeight: 500 }}
             >
               hello@eyecatch.in
               <span aria-hidden className="btn-arrow">

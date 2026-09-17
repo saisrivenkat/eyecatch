@@ -24,11 +24,15 @@ export async function WorkSection({
   return (
     <section
       className="text-white"
-      style={{ padding: "120px 0", position: "relative", zIndex: 2 }}
+      style={{
+        padding: "clamp(64px, 12vw, 120px) 0",
+        position: "relative",
+        zIndex: 2,
+      }}
     >
       <div className="container">
         <ScrollReveal distance={60}>
-          <div style={{ marginBottom: "60px" }}>
+          <div style={{ marginBottom: "clamp(36px, 8vw, 60px)" }}>
             <p
               className="uppercase text-white/55"
               style={{
@@ -41,11 +45,11 @@ export async function WorkSection({
             </p>
             <h2
               style={{
-                fontSize: "clamp(48px, 7vw, 101px)",
+                fontSize: "clamp(34px, 7vw, 101px)",
                 fontWeight: 400,
                 lineHeight: 1.0,
                 letterSpacing: "-0.02em",
-                marginBottom: "32px",
+                marginBottom: "clamp(20px, 4vw, 32px)",
               }}
             >
               Brands we&apos;ve
@@ -55,8 +59,8 @@ export async function WorkSection({
             <p
               className="text-white/70"
               style={{
-                fontSize: "20px",
-                lineHeight: "28px",
+                fontSize: "clamp(16px, 3.4vw, 20px)",
+                lineHeight: 1.4,
                 fontWeight: 400,
                 maxWidth: "700px",
               }}

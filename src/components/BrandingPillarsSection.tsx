@@ -82,7 +82,7 @@ function StepRow({ step, reverse }: { step: Step; reverse: boolean }) {
         delay={0.05}
       >
         <div
-          className="relative overflow-hidden rounded-[28px]"
+          className="relative overflow-hidden rounded-[20px] md:rounded-[28px]"
           style={{
             aspectRatio: "4 / 3",
             backgroundColor: "#161616",
@@ -102,7 +102,7 @@ function StepRow({ step, reverse }: { step: Step; reverse: boolean }) {
           />
           <div className="absolute inset-0 bg-gradient-to-t from-black/55 via-black/10 to-transparent" />
           <span
-            className="absolute left-7 top-7 text-white/85"
+            className="absolute left-5 top-5 text-white/85 md:left-7 md:top-7"
             style={{ fontSize: "13px", letterSpacing: "1.5px" }}
           >
             {step.number} / Step
@@ -128,10 +128,10 @@ function StepRow({ step, reverse }: { step: Step; reverse: boolean }) {
           <h3
             className="font-medium text-white"
             style={{
-              fontSize: "clamp(40px, 5vw, 64px)",
+              fontSize: "clamp(32px, 5vw, 64px)",
               lineHeight: 1.0,
               letterSpacing: "-0.02em",
-              marginBottom: "20px",
+              marginBottom: "clamp(14px, 3.5vw, 20px)",
             }}
           >
             {step.title}.
@@ -142,10 +142,10 @@ function StepRow({ step, reverse }: { step: Step; reverse: boolean }) {
           <p
             className="text-white/75"
             style={{
-              fontSize: "18px",
-              lineHeight: "28px",
+              fontSize: "clamp(15px, 3.9vw, 18px)",
+              lineHeight: 1.55,
               maxWidth: "540px",
-              marginBottom: "28px",
+              marginBottom: "clamp(20px, 5vw, 28px)",
             }}
           >
             {step.blurb}
@@ -183,11 +183,17 @@ export function BrandingPillarsSection() {
     <section
       id="pillars"
       className="bg-[#0e0e0e] text-white"
-      style={{ padding: "120px 0 0", position: "relative", zIndex: 2 }}
+      style={{
+        padding: "clamp(64px, 12vw, 120px) 0 0",
+        position: "relative",
+        zIndex: 2,
+      }}
     >
       <div className="container">
         <ScrollReveal distance={60} duration={0.9}>
-          <div style={{ marginBottom: "80px", maxWidth: "780px" }}>
+          <div
+            style={{ marginBottom: "clamp(44px, 10vw, 80px)", maxWidth: "780px" }}
+          >
             <ScrollReveal direction="right" distance={40} delay={0.1} duration={0.7}>
               <p
                 className="uppercase text-white/55"
@@ -204,11 +210,11 @@ export function BrandingPillarsSection() {
             <ScrollReveal direction="up" distance={40} delay={0.2} duration={0.9}>
               <h2
                 style={{
-                  fontSize: "clamp(48px, 7vw, 101px)",
+                  fontSize: "clamp(38px, 7vw, 101px)",
                   fontWeight: 400,
                   lineHeight: 1.0,
                   letterSpacing: "-0.02em",
-                  marginBottom: "32px",
+                  marginBottom: "clamp(20px, 5vw, 32px)",
                 }}
               >
                 Three steps,
@@ -220,7 +226,7 @@ export function BrandingPillarsSection() {
             <ScrollReveal direction="up" distance={30} delay={0.32} duration={0.9}>
               <p
                 className="text-white/70"
-                style={{ fontSize: "20px", lineHeight: "28px" }}
+                style={{ fontSize: "clamp(16px, 4.2vw, 20px)", lineHeight: 1.5 }}
               >
                 We keep the engagement to three honest phases — Ideation,
                 Transformation, and Handover — so the work moves quickly and
@@ -230,7 +236,7 @@ export function BrandingPillarsSection() {
           </div>
         </ScrollReveal>
 
-        <div className="space-y-[120px]">
+        <div className="space-y-[clamp(64px,14vw,120px)]">
           {steps.map((step, i) => (
             <StepRow key={step.number} step={step} reverse={i % 2 === 1} />
           ))}

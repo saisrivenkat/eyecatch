@@ -17,7 +17,7 @@ function SocialIcon({
       aria-label={label}
       target={href.startsWith("http") ? "_blank" : undefined}
       rel={href.startsWith("http") ? "noopener noreferrer" : undefined}
-      className="inline-flex h-9 w-9 items-center justify-center rounded-full text-white/55 transition-colors duration-200 hover:text-white"
+      className="inline-flex h-11 w-11 items-center justify-center rounded-full text-white/55 transition-colors duration-200 hover:text-white"
     >
       {children}
     </a>
@@ -37,7 +37,10 @@ export function Footer() {
     >
       <div
         className="container"
-        style={{ paddingTop: "80px", paddingBottom: "80px" }}
+        style={{
+          paddingTop: "clamp(56px, 11vw, 80px)",
+          paddingBottom: "clamp(56px, 11vw, 80px)",
+        }}
       >
         <div className="flex justify-center">
           <Image
@@ -45,11 +48,11 @@ export function Footer() {
             alt="EyeCatch"
             width={220}
             height={56}
-            className="h-[52px] w-auto opacity-90"
+            className="h-[42px] w-auto opacity-90 md:h-[52px]"
           />
         </div>
 
-        <div className="mt-10 grid gap-10 md:grid-cols-2 md:gap-16">
+        <div className="mt-10 grid gap-8 sm:grid-cols-2 md:gap-16">
           <div>
             <p className="mb-3 text-sm font-semibold text-white">Hyderabad</p>
             <p
@@ -70,7 +73,7 @@ export function Footer() {
           </div>
         </div>
 
-        <div className="mt-12 flex justify-center gap-6 text-white/55">
+        <div className="mt-12 flex flex-wrap justify-center gap-5 text-white/55 sm:gap-6">
           <SocialIcon href="#" label="Facebook">
             <svg
               width="16"

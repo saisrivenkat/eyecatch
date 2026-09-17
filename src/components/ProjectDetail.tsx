@@ -117,8 +117,8 @@ export function ProjectDetail({ project }: { project: Project }) {
       <section
         className="relative w-full"
         style={{
-          paddingTop: "180px",
-          paddingBottom: "100px",
+          paddingTop: "clamp(120px, 26vw, 180px)",
+          paddingBottom: "clamp(56px, 12vw, 100px)",
         }}
       >
         <div className="container">
@@ -139,7 +139,7 @@ export function ProjectDetail({ project }: { project: Project }) {
             ref={heroParallaxRef}
             className="text-white will-change-transform"
             style={{
-              fontSize: "clamp(56px, 11vw, 184px)",
+              fontSize: "clamp(42px, 11vw, 184px)",
               fontWeight: 300,
               lineHeight: 0.92,
               letterSpacing: "-0.035em",
@@ -156,7 +156,7 @@ export function ProjectDetail({ project }: { project: Project }) {
               height: "1px",
               width: "100%",
               backgroundColor: "rgba(255,255,255,0.12)",
-              marginTop: "60px",
+              marginTop: "clamp(32px, 8vw, 60px)",
               animationDelay: `${0.04 * project.title.length + 0.4}s`,
             }}
           />
@@ -167,7 +167,7 @@ export function ProjectDetail({ project }: { project: Project }) {
       <section
         className="relative w-full overflow-hidden"
         style={{
-          padding: "28px 0",
+          padding: "clamp(16px, 4vw, 28px) 0",
           borderTop: "1px solid rgba(255,255,255,0.06)",
           borderBottom: "1px solid rgba(255,255,255,0.06)",
           backgroundColor: "rgba(255,255,255,0.02)",
@@ -177,7 +177,7 @@ export function ProjectDetail({ project }: { project: Project }) {
           <div
             className="project-marquee whitespace-nowrap"
             style={{
-              fontSize: "clamp(28px, 4vw, 56px)",
+              fontSize: "clamp(22px, 4vw, 56px)",
               fontWeight: 300,
               letterSpacing: "-0.015em",
               color: "rgba(255,255,255,0.22)",
@@ -266,7 +266,7 @@ export function ProjectDetail({ project }: { project: Project }) {
 
           <div
             className="container"
-            style={{ padding: "20px 26px" }}
+            style={{ paddingTop: "18px", paddingBottom: "18px" }}
           >
             <span className="text-white/45" style={eyebrowStyle}>
               Reel &nbsp;&mdash;&nbsp; in motion
@@ -280,14 +280,14 @@ export function ProjectDetail({ project }: { project: Project }) {
         ref={storyBlock.ref}
         className="relative w-full"
         style={{
-          padding: "160px 0",
+          padding: "clamp(72px, 16vw, 160px) 0",
           borderBottom: "1px solid rgba(255,255,255,0.08)",
         }}
       >
         <div
           ref={storyParallaxRef}
           className="mx-auto will-change-transform"
-          style={{ maxWidth: "880px", padding: "0 26px" }}
+          style={{ maxWidth: "880px", padding: "0 clamp(18px, 5vw, 26px)" }}
         >
           <p
             className={
@@ -295,7 +295,7 @@ export function ProjectDetail({ project }: { project: Project }) {
             }
             style={{
               ...eyebrowStyle,
-              marginBottom: "40px",
+              marginBottom: "clamp(24px, 6vw, 40px)",
               opacity: storyBlock.visible ? undefined : 0,
             }}
           >
@@ -305,7 +305,7 @@ export function ProjectDetail({ project }: { project: Project }) {
           <p
             className={storyBlock.visible ? "project-fade-up" : ""}
             style={{
-              fontSize: "clamp(26px, 3vw, 40px)",
+              fontSize: "clamp(20px, 3vw, 40px)",
               lineHeight: 1.32,
               fontWeight: 300,
               letterSpacing: "-0.012em",
@@ -348,7 +348,7 @@ export function ProjectDetail({ project }: { project: Project }) {
           </div>
           <div
             className="container"
-            style={{ padding: "20px 26px" }}
+            style={{ paddingTop: "18px", paddingBottom: "18px" }}
           >
             <span className="text-white/45" style={eyebrowStyle}>
               Stills &nbsp;&mdash;&nbsp; on display
@@ -361,11 +361,11 @@ export function ProjectDetail({ project }: { project: Project }) {
       <section
         className="relative w-full"
         style={{
-          padding: "100px 0 120px",
+          padding: "clamp(56px, 12vw, 100px) 0 clamp(64px, 13vw, 120px)",
           borderTop: "1px solid rgba(255,255,255,0.06)",
         }}
       >
-        <div className="container flex items-center justify-between">
+        <div className="container flex flex-wrap items-center justify-between gap-4">
           <span className="text-white/35" style={eyebrowStyle}>
             End of case study
           </span>
@@ -403,17 +403,16 @@ function MetaCell({
 }) {
   return (
     <div
-      className={visible ? "project-fade-up" : ""}
+      className={[
+        "flex flex-col justify-center border-white/10 py-6 md:py-8 md:pr-8",
+        divider ? "border-t md:border-t-0 md:border-l md:pl-8" : "",
+        visible ? "project-fade-up" : "",
+      ]
+        .filter(Boolean)
+        .join(" ")}
       style={{
-        padding: "32px 0",
-        borderLeft: divider ? "1px solid rgba(255,255,255,0.08)" : "none",
-        paddingLeft: divider ? "32px" : "0",
-        paddingRight: "32px",
         opacity: visible ? undefined : 0,
         animationDelay: `${delay}s`,
-        display: "flex",
-        flexDirection: "column",
-        justifyContent: "center",
       }}
     >
       <p
@@ -423,7 +422,7 @@ function MetaCell({
           letterSpacing: "2px",
           textTransform: "uppercase",
           fontWeight: 500,
-          marginBottom: "10px",
+          marginBottom: "8px",
         }}
       >
         {label}
@@ -431,7 +430,7 @@ function MetaCell({
       <p
         className="text-white"
         style={{
-          fontSize: "17px",
+          fontSize: "clamp(15px, 3.9vw, 17px)",
           lineHeight: 1.4,
           fontWeight: 400,
         }}

@@ -30,7 +30,12 @@ export default async function WorkPage() {
       <main className="relative z-2" style={{ backgroundColor: "transparent" }}>
         <section
           className="text-white"
-          style={{ padding: "180px 0 120px", position: "relative", zIndex: 2 }}
+          style={{
+            padding:
+              "clamp(120px, 26vw, 180px) 0 clamp(64px, 12vw, 120px)",
+            position: "relative",
+            zIndex: 2,
+          }}
         >
           <div className="container">
             <p
@@ -38,7 +43,7 @@ export default async function WorkPage() {
               style={{
                 fontSize: "13px",
                 letterSpacing: "1.5px",
-                marginBottom: "40px",
+                marginBottom: "clamp(24px, 5vw, 40px)",
               }}
             >
               Selected work

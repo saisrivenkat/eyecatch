@@ -60,10 +60,13 @@ export function HeroSection() {
   return (
     <section
       className="relative w-full h-screen"
-      style={{ backgroundColor: "transparent" }}
+      /* `100svh` keeps the hero inside the *small* viewport so a phone's
+         collapsing URL bar can't crop the headline. Browsers without `svh`
+         drop the declaration and fall back to the `h-screen` class. */
+      style={{ backgroundColor: "transparent", height: "100svh" }}
     >
       {/* Main container */}
-      <div className="container relative z-2 mx-auto h-full flex flex-col justify-center px-6 md:px-10 pb-10">
+      <div className="container relative z-2 mx-auto flex h-full flex-col justify-center px-0 pb-10 md:px-10">
         {/* Hero display text — parallax target */}
         <div
           ref={headlineRef}
@@ -101,9 +104,9 @@ export function HeroSection() {
         {/* Subtitle — bottom right */}
         <p
           ref={subRef}
-          className="absolute right-6 md:right-10 bottom-10 text-white max-md:static max-md:mt-10 max-md:max-w-full will-change-transform"
+          className="absolute right-6 md:right-10 bottom-10 text-white max-md:static max-md:mt-8 max-md:max-w-full will-change-transform"
           style={{
-            fontSize: "clamp(18px, 1.4vw, 26px)",
+            fontSize: "clamp(17px, 1.4vw, 26px)",
             lineHeight: 1.35,
             maxWidth: "clamp(380px, 55vw, 900px)",
             opacity: mounted ? 1 : 0,

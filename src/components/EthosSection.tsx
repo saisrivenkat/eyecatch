@@ -102,17 +102,17 @@ export function EthosSection() {
   return (
     <section
       ref={sectionRef}
-      className="text-white"
-      style={{ padding: "120px 0", position: "relative", zIndex: 2 }}
+      className="section-y text-white"
+      style={{ position: "relative", zIndex: 2 }}
     >
       <div className="container">
         <h2
           ref={headingRef}
           style={{
-            fontSize: "clamp(48px, 7vw, 101px)",
+            fontSize: "clamp(40px, 7vw, 101px)",
             fontWeight: 400,
             lineHeight: 1.0,
-            marginBottom: "80px",
+            marginBottom: "clamp(40px, 9vw, 80px)",
           }}
         >
           Brand led.
@@ -127,18 +127,20 @@ export function EthosSection() {
               ref={(el) => {
                 itemRefs.current[i] = el;
               }}
-              className="ethos-row group relative border-t border-white/10 first:border-t last:border-b py-12 md:py-16"
+              className="ethos-row group relative border-t border-white/10 first:border-t last:border-b py-9 md:py-16"
             >
-              <div className="ethos-line mb-10 h-px origin-left bg-white/15" />
+              <div className="ethos-line mb-7 h-px origin-left bg-white/15 md:mb-10" />
 
-              <div className="relative grid gap-10 md:grid-cols-[minmax(0,auto)_minmax(0,1fr)_minmax(0,auto)] md:items-center">
+              <div className="relative grid gap-5 md:grid-cols-[minmax(0,auto)_minmax(0,1fr)_minmax(0,auto)] md:items-center md:gap-10">
                 {/* LEFT: number + title */}
                 <div className="ethos-heading z-10 md:max-w-[480px]">
-                  <p className="mb-4 text-base opacity-50">{item.number}</p>
+                  <p className="mb-3 text-sm opacity-50 md:mb-4 md:text-base">
+                    {item.number}
+                  </p>
                   <h3
                     className="leading-[0.95] font-bold"
                     style={{
-                      fontSize: "clamp(42px, 7vw, 88px)",
+                      fontSize: "clamp(30px, 7vw, 88px)",
                       letterSpacing: "-0.02em",
                       wordBreak: "break-word",
                     }}
@@ -150,10 +152,10 @@ export function EthosSection() {
                 {/* MIDDLE: empty gap */}
                 <div aria-hidden className="hidden md:block" />
 
-                {/* RIGHT: description — hidden by default, revealed on row hover */}
-                <div
-                  className="ethos-desc z-10 md:max-w-[360px] md:text-right md:justify-self-end text-lg leading-7 font-normal text-white/80 opacity-0 translate-y-3 transition-all duration-300 ease-out group-hover:opacity-100 group-hover:translate-y-0"
-                >
+                {/* RIGHT: description. On pointer devices it is a hover reveal
+                    (see .ethos-desc in globals.css); on touch there is no hover,
+                    so it renders inline instead of never showing at all. */}
+                <div className="ethos-desc z-10 text-[15px] leading-6 font-normal text-white/70 md:max-w-[360px] md:justify-self-end md:text-right md:text-lg md:leading-7 md:text-white/80">
                   {item.description}
                 </div>
               </div>

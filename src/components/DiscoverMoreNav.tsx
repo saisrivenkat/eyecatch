@@ -20,7 +20,7 @@ export function DiscoverMoreNav() {
   return (
     <section
       className="relative"
-      style={{ padding: "60px 0", zIndex: 2 }}
+      style={{ padding: "clamp(36px, 8vw, 60px) 0", zIndex: 2 }}
     >
       <div className="container">
         <nav
@@ -51,9 +51,9 @@ export function DiscoverMoreNav() {
                   : "bg-transparent text-white/85 border-white/25 hover:bg-white/10 hover:border-white/50"
               )}
               style={{
-                fontSize: "16px",
+                fontSize: "clamp(14px, 3.6vw, 16px)",
                 lineHeight: 1,
-                padding: "10px 18px",
+                padding: "10px 16px",
                 borderRadius: "33px",
                 borderWidth: "1.6px",
                 borderStyle: "solid",

@@ -24,7 +24,7 @@ export function Header() {
         className={cn(
           "fixed top-0 left-0 w-full z-10",
           "flex justify-between items-center",
-          "p-[26px]",
+          "p-[18px] md:p-[26px]",
           "transition-[background,backdrop-filter] duration-300 ease-in-out",
           scrolled ? "header-scrolled" : "bg-transparent"
         )}
@@ -39,7 +39,7 @@ export function Header() {
                 width={180}
                 height={47}
                 priority
-                className="h-[44px] w-auto"
+                className="h-[34px] w-auto md:h-[44px]"
               />
             </Link>
           </div>
@@ -52,7 +52,7 @@ export function Header() {
               aria-label="Open menu"
               aria-expanded={menuOpen}
               className={cn(
-                "w-[52px] h-[52px]",
+                "w-[46px] h-[46px] md:w-[52px] md:h-[52px]",
                 "rounded-full",
                 "border-[1.5px] border-white/40",
                 "bg-transparent",
@@ -61,7 +61,7 @@ export function Header() {
                 "transition-transform duration-200 hover:scale-95"
               )}
             >
-              <MenuIcon className="w-[22px] text-white" />
+              <MenuIcon className="w-[19px] text-white md:w-[22px]" />
             </button>
           </div>
         </div>
