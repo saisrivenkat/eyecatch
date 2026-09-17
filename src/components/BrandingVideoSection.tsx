@@ -39,7 +39,7 @@ export function BrandingVideoSection() {
     <section
       ref={sectionRef}
       style={{
-        padding: "60px 0 80px",
+        padding: "clamp(24px, 6vw, 60px) 0 clamp(40px, 8vw, 80px)",
         position: "relative",
         zIndex: 2,
         backgroundColor: "transparent",
@@ -47,7 +47,11 @@ export function BrandingVideoSection() {
     >
       <div
         className="overflow-hidden"
-        style={{ aspectRatio: "16 / 9", marginTop: "120px", width: "100%" }}
+        style={{
+          aspectRatio: "16 / 9",
+          marginTop: "clamp(40px, 12vw, 120px)",
+          width: "100%",
+        }}
       >
         <video
           ref={videoRef}

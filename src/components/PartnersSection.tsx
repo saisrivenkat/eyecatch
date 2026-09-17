@@ -20,14 +20,21 @@ const partners = [
 
 export function PartnersSection() {
   return (
-    <section className="text-white" style={{ padding: "80px 0 64px", position: "relative", zIndex: 2 }}>
+    <section
+      className="text-white"
+      style={{
+        padding: "clamp(48px, 10vw, 80px) 0 clamp(40px, 8vw, 64px)",
+        position: "relative",
+        zIndex: 2,
+      }}
+    >
       <div className="container">
         <ScrollReveal distance={60}>
-          <div style={{ marginBottom: "60px" }}>
+          <div style={{ marginBottom: "clamp(32px, 7vw, 60px)" }}>
             <p style={{ fontSize: "14px", marginBottom: "8px" }}>Our</p>
             <h2
               style={{
-                fontSize: "clamp(48px, 7vw, 101px)",
+                fontSize: "clamp(40px, 7vw, 101px)",
                 fontWeight: 400,
                 lineHeight: 1.0,
               }}
@@ -46,7 +53,10 @@ export function PartnersSection() {
             <div
               key={`${logo}-${i}`}
               className="flex items-center justify-center shrink-0"
-              style={{ width: "180px", padding: "0 30px" }}
+              style={{
+                width: "clamp(120px, 34vw, 180px)",
+                padding: "0 clamp(18px, 5vw, 30px)",
+              }}
             >
               <Image
                 src={`/images/partners/${logo}`}
@@ -55,7 +65,7 @@ export function PartnersSection() {
                 height={40}
                 unoptimized
                 className="invert opacity-70 hover:opacity-100 transition-opacity duration-300"
-                style={{ height: "40px", width: "auto" }}
+                style={{ height: "clamp(28px, 7vw, 40px)", width: "auto" }}
               />
             </div>
           ))}

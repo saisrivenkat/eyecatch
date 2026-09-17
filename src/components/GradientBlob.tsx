@@ -171,6 +171,7 @@ export function GradientBlob() {
   }, []);
 
   useEffect(() => {
+    if (!window.matchMedia("(pointer: fine)").matches) return;
     window.addEventListener("mousemove", handleMouseMove);
     return () => window.removeEventListener("mousemove", handleMouseMove);
   }, [handleMouseMove]);
@@ -214,9 +215,18 @@ export function GradientBlob() {
     let animId: number;
     const t0 = performance.now();
 
+    /* Phones render this shader across the whole viewport for the entire
+       session. Rendering it at 1.5x device pixels and a full 60fps there is
+       pure battery burn for a backdrop, so coarse-pointer devices get 1x
+       pixels and a 30fps cap. */
+    const isCoarse = window.matchMedia("(pointer: coarse)").matches;
+    const maxDpr = isCoarse ? 1 : 1.5;
+    const minFrameMs = isCoarse ? 1000 / 30 : 0;
+    let lastDraw = 0;
+
     function resize() {
       if (!canvas) return;
-      const dpr = Math.min(window.devicePixelRatio, 1.5);
+      const dpr = Math.min(window.devicePixelRatio, maxDpr);
       const w = Math.round(canvas.clientWidth * dpr);
       const h = Math.round(canvas.clientHeight * dpr);
       if (canvas.width !== w || canvas.height !== h) {
@@ -225,8 +235,21 @@ export function GradientBlob() {
       }
     }
 
-    function frame() {
+    function frame(now: number) {
       if (!canvas || !glCtx) return;
+
+      // Nothing to draw while the tab is backgrounded
+      if (document.hidden) {
+        animId = requestAnimationFrame(frame);
+        return;
+      }
+
+      if (minFrameMs && now - lastDraw < minFrameMs) {
+        animId = requestAnimationFrame(frame);
+        return;
+      }
+      lastDraw = now;
+
       resize();
       if (canvas.width === 0 || canvas.height === 0) {
         animId = requestAnimationFrame(frame);
@@ -250,7 +273,7 @@ export function GradientBlob() {
       animId = requestAnimationFrame(frame);
     }
 
-    frame();
+    frame(performance.now());
 
     return () => {
       cancelAnimationFrame(animId);

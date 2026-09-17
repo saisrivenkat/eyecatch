@@ -51,20 +51,22 @@ function FaqItem({
     <div
       style={{
         borderBottom: "1px solid rgba(255,255,255,0.15)",
-        padding: "24px 0",
+        padding: "20px 0",
       }}
     >
       <button
         onClick={() => setIsOpen(!isOpen)}
         className="flex w-full items-center justify-between text-left cursor-pointer"
       >
-        <span style={{ fontSize: "20px" }}>{question}</span>
+        <span style={{ fontSize: "clamp(16px, 4.2vw, 20px)", lineHeight: 1.35 }}>
+          {question}
+        </span>
         <ChevronDownIcon
           className="shrink-0 transition-transform duration-300"
           style={{
-            width: "24px",
-            height: "24px",
-            marginLeft: "16px",
+            width: "20px",
+            height: "20px",
+            marginLeft: "14px",
             transform: isOpen ? "rotate(180deg)" : "rotate(0deg)",
           }}
         />
@@ -72,15 +74,15 @@ function FaqItem({
       <div
         className="faq-answer"
         style={{
-          maxHeight: isOpen ? "500px" : "0px",
+          maxHeight: isOpen ? "900px" : "0px",
           opacity: isOpen ? 1 : 0,
           padding: isOpen ? "16px 0 0" : "0",
         }}
       >
         <p
           style={{
-            fontSize: "18px",
-            lineHeight: "28px",
+            fontSize: "clamp(15px, 3.9vw, 18px)",
+            lineHeight: 1.55,
             maxWidth: "700px",
             opacity: 0.7,
           }}
@@ -94,15 +96,15 @@ function FaqItem({
 
 export function FaqSection() {
   return (
-    <section className="text-white" style={{ padding: "120px 0", position: "relative", zIndex: 2 }}>
+    <section className="section-y text-white" style={{ position: "relative", zIndex: 2 }}>
       <div className="container">
         <ScrollReveal distance={60}>
           <h2
             style={{
-              fontSize: "clamp(48px, 7vw, 80px)",
+              fontSize: "clamp(40px, 7vw, 80px)",
               fontWeight: 400,
               lineHeight: 1.0,
-              marginBottom: "40px",
+              marginBottom: "clamp(28px, 6vw, 40px)",
             }}
           >
             FAQ&apos;s

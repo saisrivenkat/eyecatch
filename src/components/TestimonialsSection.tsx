@@ -1,6 +1,6 @@
 "use client";
 
-import { useRef, useState, useCallback } from "react";
+import { useRef, useState, useCallback, type CSSProperties } from "react";
 import { ScrollReveal } from "@/components/ScrollReveal";
 
 const testimonials = [
@@ -15,7 +15,7 @@ const testimonials = [
   {
     company: "Margadarsi",
     quote:
-      "EyeCatch team have been brilliant from day one to work with. Very quick to respond to any queries, a lovely group of people, with a great eye for design and detail. I\u2019ve loved working with them so far.",
+      "EyeCatch team have been brilliant from day one to work with. Very quick to respond to any queries, a lovely group of people, with a great eye for design and detail. I’ve loved working with them so far.",
     name: "Mrs Sailaja Suman",
     role: "MD, Margadarsi",
     bg: "#a3d8ec",
@@ -30,12 +30,19 @@ const testimonials = [
   },
 ];
 
+/* Peek distance per card behind the front one — 60px of offset pushed the back
+   cards clean off a phone screen, so it scales with the viewport now. */
+const STACK_SHIFT = "clamp(12px, 3.2vw, 60px)";
+
+const arrowButton =
+  "shrink-0 items-center justify-center w-12 h-12 lg:w-14 lg:h-14 rounded-full border-2 border-white/30 bg-black/60 backdrop-blur-sm text-white transition-all duration-300 cursor-pointer hover:bg-white hover:text-black hover:border-white";
+
 export function TestimonialsSection() {
   // order tracks the card indices in stack order: [front, ..., back]
   const [order, setOrder] = useState(() => testimonials.map((_, i) => i));
   const [animating, setAnimating] = useState(false);
   const [exitingIdx, setExitingIdx] = useState<number | null>(null);
-  const containerRef = useRef<HTMLDivElement>(null);
+  const touchStartX = useRef<number | null>(null);
 
   const goNext = useCallback(() => {
     if (animating) return;
@@ -72,17 +79,30 @@ export function TestimonialsSection() {
     }, 1000);
   }, [animating]);
 
+  const onTouchStart = (e: React.TouchEvent) => {
+    touchStartX.current = e.touches[0].clientX;
+  };
+  const onTouchEnd = (e: React.TouchEvent) => {
+    const start = touchStartX.current;
+    touchStartX.current = null;
+    if (start === null) return;
+    const dx = e.changedTouches[0].clientX - start;
+    if (Math.abs(dx) < 45) return;
+    if (dx < 0) goNext();
+    else goPrev();
+  };
+
   return (
-    <section style={{ padding: "120px 0", position: "relative", zIndex: 2 }}>
+    <section className="section-y" style={{ position: "relative", zIndex: 2 }}>
       <div className="container">
         <ScrollReveal>
           <h2
             style={{
-              fontSize: "clamp(48px, 9vw, 150px)",
+              fontSize: "clamp(40px, 9vw, 150px)",
               fontWeight: 400,
               lineHeight: 0.92,
               letterSpacing: "-0.03em",
-              marginBottom: "80px",
+              marginBottom: "clamp(36px, 9vw, 80px)",
             }}
           >
             What our clients say
@@ -92,36 +112,37 @@ export function TestimonialsSection() {
 
       <div className="container">
         <div
-          ref={containerRef}
           className="relative"
-          style={{ height: "560px" }}
+          style={
+            {
+              height: "clamp(400px, 104vw, 560px)",
+              "--stack-shift": STACK_SHIFT,
+            } as CSSProperties
+          }
+          onTouchStart={onTouchStart}
+          onTouchEnd={onTouchEnd}
         >
           {order.map((cardIdx, stackPos) => {
             const t = testimonials[cardIdx];
             const isExiting = exitingIdx === cardIdx;
 
             // Stack position: 0 = front, 1 = behind, etc.
-            // Wide cards need a bigger shift than narrow ones so the back cards
-            // actually peek out (translate must exceed the shrink-from-scale)
-            const shiftLeft = stackPos * 60;
             const shiftY = stackPos * 10;
             const scale = 1 - stackPos * 0.02;
             const zIndex = testimonials.length - stackPos;
 
-            let transform: string;
-            if (isExiting) {
-              // Fly out to the right
-              transform = "translateX(120%) scale(0.95)";
-            } else {
-              transform = `translate(-${shiftLeft}px, ${shiftY}px) scale(${scale})`;
-            }
+            const transform = isExiting
+              ? "translateX(120%) scale(0.95)"
+              : `translate(calc(var(--stack-shift) * -${stackPos}), ${shiftY}px) scale(${scale})`;
 
             return (
               <div
                 key={t.company}
-                className="absolute top-0 left-0 right-0"
+                className="absolute top-0 right-0"
                 style={{
-                  width: "100%",
+                  width: `calc(100% - var(--stack-shift) * ${
+                    testimonials.length - 1
+                  })`,
                   height: "100%",
                   transform,
                   transformOrigin: "right center",
@@ -131,13 +152,14 @@ export function TestimonialsSection() {
                     : "transform 1s cubic-bezier(0.25, 0.46, 0.45, 0.94)",
                   opacity: isExiting ? 0 : 1,
                 }}
+                aria-hidden={stackPos !== 0}
               >
                 <div
-                  className="relative h-full text-black flex flex-col justify-between overflow-hidden"
+                  className="relative flex h-full flex-col justify-between overflow-hidden text-black"
                   style={{
                     backgroundColor: t.bg,
                     borderRadius: "24px",
-                    padding: "50px",
+                    padding: "clamp(24px, 6.5vw, 50px)",
                   }}
                 >
                   {/* Decorative animated layer — fills the empty right side of the wide card */}
@@ -146,9 +168,9 @@ export function TestimonialsSection() {
                     <span
                       className="testimonial-quote-mark absolute select-none font-bold leading-none"
                       style={{
-                        right: "60px",
-                        top: "20px",
-                        fontSize: "clamp(180px, 22vw, 340px)",
+                        right: "clamp(16px, 8vw, 60px)",
+                        top: "10px",
+                        fontSize: "clamp(120px, 26vw, 340px)",
                         color: "rgba(0,0,0,0.08)",
                       }}
                     >
@@ -161,8 +183,8 @@ export function TestimonialsSection() {
                       style={{
                         right: "-8%",
                         bottom: "-12%",
-                        width: "380px",
-                        height: "380px",
+                        width: "clamp(200px, 55vw, 380px)",
+                        height: "clamp(200px, 55vw, 380px)",
                         background:
                           "radial-gradient(circle, rgba(255,255,255,0.55) 0%, rgba(255,255,255,0) 65%)",
                         filter: "blur(20px)",
@@ -173,8 +195,8 @@ export function TestimonialsSection() {
                       style={{
                         right: "22%",
                         top: "30%",
-                        width: "200px",
-                        height: "200px",
+                        width: "clamp(120px, 30vw, 200px)",
+                        height: "clamp(120px, 30vw, 200px)",
                         background:
                           "radial-gradient(circle, rgba(0,0,0,0.10) 0%, rgba(0,0,0,0) 70%)",
                         filter: "blur(28px)",
@@ -185,8 +207,8 @@ export function TestimonialsSection() {
                       style={{
                         right: "10%",
                         top: "10%",
-                        width: "140px",
-                        height: "140px",
+                        width: "clamp(90px, 22vw, 140px)",
+                        height: "clamp(90px, 22vw, 140px)",
                         background:
                           "radial-gradient(circle, rgba(255,255,255,0.4) 0%, rgba(255,255,255,0) 70%)",
                         filter: "blur(24px)",
@@ -195,7 +217,7 @@ export function TestimonialsSection() {
 
                     {/* Slow-rotating concentric outline rings — peek from the right edge */}
                     <div
-                      className="testimonial-ring absolute rounded-full border border-black/15"
+                      className="testimonial-ring absolute hidden rounded-full border border-black/15 sm:block"
                       style={{
                         right: "-120px",
                         top: "50%",
@@ -205,7 +227,7 @@ export function TestimonialsSection() {
                       }}
                     />
                     <div
-                      className="testimonial-ring absolute rounded-full border border-black/10"
+                      className="testimonial-ring absolute hidden rounded-full border border-black/10 sm:block"
                       style={{
                         right: "-60px",
                         top: "50%",
@@ -218,20 +240,21 @@ export function TestimonialsSection() {
                     />
                   </div>
 
-                  {/* Content layer — constrained to left so decoration breathes on the right */}
-                  <div className="relative z-10" style={{ maxWidth: "min(620px, 65%)" }}>
+                  {/* Content layer — on wide cards it stays left so the decoration
+                      breathes on the right; on a phone the card is the column. */}
+                  <div className="relative z-10 max-w-full lg:max-w-[min(620px,65%)]">
                     <h3
                       style={{
-                        fontSize: "clamp(28px, 4vw, 42px)",
+                        fontSize: "clamp(26px, 6.5vw, 42px)",
                         fontWeight: 700,
-                        marginBottom: "24px",
+                        marginBottom: "clamp(14px, 3.5vw, 24px)",
                       }}
                     >
                       {t.company}
                     </h3>
                     <p
                       style={{
-                        fontSize: "clamp(16px, 2vw, 22px)",
+                        fontSize: "clamp(15px, 3.9vw, 22px)",
                         lineHeight: 1.5,
                       }}
                     >
@@ -239,15 +262,16 @@ export function TestimonialsSection() {
                     </p>
                   </div>
 
-                  <div className="relative z-10">
-                    <p style={{ fontSize: "18px", fontWeight: 600, marginBottom: "2px" }}>
+                  <div className="relative z-10 mt-6">
+                    <p style={{ fontSize: "clamp(16px, 4vw, 18px)", fontWeight: 600, marginBottom: "2px" }}>
                       {t.name}
                     </p>
-                    <p style={{ fontSize: "16px", opacity: 0.7 }}>{t.role}</p>
+                    <p style={{ fontSize: "clamp(14px, 3.6vw, 16px)", opacity: 0.7 }}>{t.role}</p>
 
                     <a
                       href="#"
-                      className="inline-flex items-center gap-2 mt-6 rounded-full border border-black/30 px-5 py-2.5 text-sm hover:bg-black/5 transition-colors backdrop-blur-sm bg-white/10"
+                      tabIndex={stackPos === 0 ? undefined : -1}
+                      className="mt-5 inline-flex items-center gap-2 rounded-full border border-black/30 bg-white/10 px-5 py-2.5 text-sm backdrop-blur-sm transition-colors hover:bg-black/5"
                     >
                       View project
                       <span aria-hidden="true">&rarr;</span>
@@ -258,23 +282,48 @@ export function TestimonialsSection() {
             );
           })}
 
-          {/* Prev / Next arrow buttons — dark on dark canvas (matches Results) */}
-          <div className="absolute bottom-8 right-8 z-50 flex items-center gap-3">
-            <button
-              onClick={goPrev}
-              className="flex items-center justify-center w-14 h-14 rounded-full border-2 border-white/30 bg-black/60 backdrop-blur-sm text-white hover:bg-white hover:text-black hover:border-white transition-all duration-300 cursor-pointer"
-              aria-label="Previous testimonial"
-            >
+          {/* Desktop — arrows float over the card's decorative right side */}
+          <div className="absolute bottom-8 right-8 z-50 hidden items-center gap-3 lg:flex">
+            <button onClick={goPrev} className={`flex ${arrowButton}`} aria-label="Previous testimonial">
               <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
                 <polyline points="15 18 9 12 15 6" />
               </svg>
             </button>
-            <button
-              onClick={goNext}
-              className="flex items-center justify-center w-14 h-14 rounded-full border-2 border-white/30 bg-black/60 backdrop-blur-sm text-white hover:bg-white hover:text-black hover:border-white transition-all duration-300 cursor-pointer"
-              aria-label="Next testimonial"
-            >
+            <button onClick={goNext} className={`flex ${arrowButton}`} aria-label="Next testimonial">
               <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+                <polyline points="9 18 15 12 9 6" />
+              </svg>
+            </button>
+          </div>
+        </div>
+
+        {/* Below lg — controls move under the deck so they stop covering the
+            quote and the "View project" link */}
+        <div className="mt-6 flex items-center justify-between gap-4 lg:hidden">
+          <div className="flex items-center gap-2" aria-hidden>
+            {testimonials.map((t, i) => (
+              <span
+                key={t.company}
+                className="block h-[3px] rounded-full transition-all duration-500"
+                style={{
+                  width: i === order[0] ? "28px" : "10px",
+                  backgroundColor:
+                    i === order[0]
+                      ? "rgba(255,255,255,0.85)"
+                      : "rgba(255,255,255,0.25)",
+                }}
+              />
+            ))}
+          </div>
+
+          <div className="flex items-center gap-3">
+            <button onClick={goPrev} className={`flex ${arrowButton}`} aria-label="Previous testimonial">
+              <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+                <polyline points="15 18 9 12 15 6" />
+              </svg>
+            </button>
+            <button onClick={goNext} className={`flex ${arrowButton}`} aria-label="Next testimonial">
+              <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
                 <polyline points="9 18 15 12 9 6" />
               </svg>
             </button>

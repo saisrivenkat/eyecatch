@@ -34,7 +34,7 @@ export function WorkFilterGrid({ projects }: { projects: Project[] }) {
       {categories.length > 2 && (
         <nav
           className="flex flex-wrap items-center"
-          style={{ gap: "8px", marginBottom: "48px" }}
+          style={{ gap: "8px", marginBottom: "clamp(28px, 6vw, 48px)" }}
           aria-label="Filter projects by category"
         >
           {categories.map((category) => {
@@ -52,9 +52,9 @@ export function WorkFilterGrid({ projects }: { projects: Project[] }) {
                     : "bg-transparent text-white/85 border-white/25 hover:bg-white/10 hover:border-white/50",
                 )}
                 style={{
-                  fontSize: "16px",
+                  fontSize: "clamp(14px, 3.4vw, 16px)",
                   lineHeight: 1,
-                  padding: "10px 18px",
+                  padding: "10px 16px",
                   borderRadius: "33px",
                   borderWidth: "1.6px",
                   borderStyle: "solid",

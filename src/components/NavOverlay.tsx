@@ -104,7 +104,7 @@ export function NavOverlay({
       {/* Top bar — eyebrow + close */}
       <div
         className="relative flex items-center justify-between"
-        style={{ padding: "26px" }}
+        style={{ padding: "18px" }}
       >
         <span
           className="text-white/45"
@@ -128,8 +128,8 @@ export function NavOverlay({
           aria-label="Close menu"
           className="flex items-center justify-center transition-transform duration-200 hover:scale-95"
           style={{
-            width: "52px",
-            height: "52px",
+            width: "46px",
+            height: "46px",
             borderRadius: "9999px",
             border: "1.5px solid rgba(255,255,255,0.4)",
             backgroundColor: "transparent",
@@ -149,7 +149,7 @@ export function NavOverlay({
         className="relative mx-auto"
         style={{
           maxWidth: "1180px",
-          padding: "60px 26px 0",
+          padding: "clamp(24px, 7vw, 60px) clamp(18px, 5vw, 26px) 0",
         }}
       >
         <ul style={{ listStyle: "none", margin: 0, padding: 0 }}>
@@ -171,7 +171,7 @@ export function NavOverlay({
                 onClick={onClose}
                 className="group flex items-center justify-between"
                 style={{
-                  padding: "32px 8px",
+                  padding: "clamp(20px, 5vw, 32px) 4px",
                   textDecoration: "none",
                   color: "inherit",
                 }}
@@ -179,7 +179,7 @@ export function NavOverlay({
                 <span
                   className="text-white transition-colors duration-300 group-hover:text-white/55"
                   style={{
-                    fontSize: "clamp(40px, 7vw, 96px)",
+                    fontSize: "clamp(34px, 7vw, 96px)",
                     fontWeight: 300,
                     lineHeight: 1.0,
                     letterSpacing: "-0.025em",
@@ -220,7 +220,7 @@ export function NavOverlay({
         <div
           className="flex flex-col gap-2 md:flex-row md:items-center md:justify-between"
           style={{
-            marginTop: "60px",
+            marginTop: "clamp(32px, 8vw, 60px)",
             opacity: open ? 1 : 0,
             transform: open ? "translateY(0)" : "translateY(20px)",
             transition: `opacity 0.6s cubic-bezier(0.22,1,0.36,1) ${0.18 + links.length * 0.07}s, transform 0.6s cubic-bezier(0.22,1,0.36,1) ${0.18 + links.length * 0.07}s`,

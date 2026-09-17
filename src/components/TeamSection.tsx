@@ -183,13 +183,15 @@ function TeamPanel({
               aria-hidden
               className="pointer-events-none absolute left-0 top-0 select-none whitespace-nowrap"
               style={{
-                fontSize: "clamp(80px, 14vw, 220px)",
+                fontSize: "clamp(56px, 14vw, 220px)",
                 fontWeight: 400,
                 lineHeight: 0.85,
                 letterSpacing: "-0.05em",
                 color: "transparent",
                 WebkitTextStroke: "1px rgba(255,255,255,0.06)",
                 transform: "translate(-2%, -22%)",
+                maxWidth: "100%",
+                overflow: "hidden",
               }}
             >
               {member.name.split(" ")[0]}
@@ -219,7 +221,7 @@ function TeamPanel({
                 ref={nameRef}
                 className="mt-4 overflow-hidden text-white"
                 style={{
-                  fontSize: "clamp(44px, 6.4vw, 92px)",
+                  fontSize: "clamp(34px, 6.4vw, 92px)",
                   fontWeight: 400,
                   lineHeight: 0.95,
                   letterSpacing: "-0.025em",
@@ -231,14 +233,14 @@ function TeamPanel({
               </h3>
 
               <div
-                className="mt-8 h-[1px] w-full"
+                className="mt-6 h-[1px] w-full md:mt-8"
                 style={{
                   background:
                     "linear-gradient(to right, rgba(255,255,255,0.18), rgba(255,255,255,0))",
                 }}
               />
 
-              <div className="mt-8 grid gap-5 md:grid-cols-2 md:gap-8">
+              <div className="mt-6 grid gap-5 md:mt-8 md:grid-cols-2 md:gap-8">
                 {member.bio.map((paragraph, i) => (
                   <ScrollReveal
                     key={i}
@@ -270,7 +272,10 @@ export function TeamSection() {
   return (
     <section
       className="relative text-white"
-      style={{ padding: "140px 0 120px", zIndex: 2 }}
+      style={{
+        padding: "clamp(72px, 14vw, 140px) 0 clamp(64px, 11vw, 120px)",
+        zIndex: 2,
+      }}
     >
       <div className="container">
         <ScrollReveal distance={40}>
@@ -286,7 +291,7 @@ export function TeamSection() {
           </p>
           <h2
             style={{
-              fontSize: "clamp(44px, 6.2vw, 96px)",
+              fontSize: "clamp(36px, 6.2vw, 96px)",
               fontWeight: 400,
               lineHeight: 0.95,
               letterSpacing: "-0.03em",
@@ -298,9 +303,9 @@ export function TeamSection() {
             the eyecatch.
           </h2>
           <p
-            className="mt-6 text-white/65"
+            className="mt-5 text-white/65 md:mt-6"
             style={{
-              fontSize: "18px",
+              fontSize: "clamp(16px, 4vw, 18px)",
               lineHeight: 1.55,
               maxWidth: "520px",
             }}
@@ -310,7 +315,7 @@ export function TeamSection() {
           </p>
         </ScrollReveal>
 
-        <div className="mt-24 space-y-32 md:mt-32 md:space-y-44">
+        <div className="mt-14 space-y-20 md:mt-32 md:space-y-44">
           {team.map((member, i) => (
             <TeamPanel key={member.name} member={member} index={i} />
           ))}
